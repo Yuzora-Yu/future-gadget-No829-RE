@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2026-03-10",
+    "filtered_mean": 127.6572,
+    "sample_size": 1024,
+    "filtered_size": 493,
+    "sigma_a": 0.0,
+    "solar_bz": -1.2238,
+    "solar_density": 0.0945,
+    "solar_speed": 436.21,
+    "solar_temp": 67181.4,
+    "sigma_b": 0.0,
+    "rank": "-",
+    "anomaly": false,
+    "word": "",
+    "word_ja": "",
+    "lotto": [],
+    "sources": 4
+  }
+]
