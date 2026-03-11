@@ -16,5 +16,23 @@
     "word_ja": "",
     "lotto": [],
     "sources": 4
+  },
+  {
+    "date": "2026-03-11",
+    "filtered_mean": 128.1463,
+    "sample_size": 1024,
+    "filtered_size": 492,
+    "sigma_a": 0.0,
+    "solar_bz": -3.1662,
+    "solar_density": 0.204,
+    "solar_speed": 534.6,
+    "solar_temp": 253870.0,
+    "sigma_b": 0.0,
+    "rank": "-",
+    "anomaly": false,
+    "word": "",
+    "word_ja": "",
+    "lotto": [],
+    "sources": 4
   }
 ]
