@@ -52,5 +52,31 @@
     "word_ja": "",
     "lotto": [],
     "sources": 4
+  },
+  {
+    "date": "2026-03-13",
+    "filtered_mean": 133.1457,
+    "sample_size": 1024,
+    "filtered_size": 508,
+    "sigma_a": 25.2665,
+    "solar_bz": -4.0088,
+    "solar_density": 1.04,
+    "solar_speed": 409.03,
+    "solar_temp": 55392.0,
+    "sigma_b": 5.7772,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "CYCLE",
+    "word_ja": "周期",
+    "lotto": [
+      7,
+      19,
+      20,
+      24,
+      25,
+      28,
+      32
+    ],
+    "sources": 4
   }
 ]
