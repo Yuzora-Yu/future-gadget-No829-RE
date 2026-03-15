@@ -104,5 +104,31 @@
       34
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-03-15",
+    "filtered_mean": 126.3266,
+    "sample_size": 1024,
+    "filtered_size": 493,
+    "sigma_a": 7.8175,
+    "solar_bz": 2.5592,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 3.6615,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "READY",
+    "word_ja": "準備完了",
+    "lotto": [
+      1,
+      2,
+      17,
+      23,
+      26,
+      32,
+      36
+    ],
+    "sources": 4
   }
 ]
