@@ -156,5 +156,31 @@
       37
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-03-17",
+    "filtered_mean": 135.1429,
+    "sample_size": 512,
+    "filtered_size": 273,
+    "sigma_a": 34.9562,
+    "solar_bz": 1.991,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 3.1632,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "FIND",
+    "word_ja": "発見",
+    "lotto": [
+      7,
+      9,
+      11,
+      14,
+      16,
+      17,
+      29
+    ],
+    "sources": 3
   }
 ]
