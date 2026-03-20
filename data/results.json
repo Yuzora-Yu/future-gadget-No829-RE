@@ -234,5 +234,31 @@
       34
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-03-20",
+    "filtered_mean": 127.6582,
+    "sample_size": 1024,
+    "filtered_size": 509,
+    "sigma_a": 1.357,
+    "solar_bz": 3.4827,
+    "solar_density": 6.3747,
+    "solar_speed": 373.52,
+    "solar_temp": 36427.7,
+    "sigma_b": 33.6037,
+    "rank": "B",
+    "anomaly": true,
+    "word": "WATCH",
+    "word_ja": "監視せよ",
+    "lotto": [
+      11,
+      15,
+      17,
+      19,
+      26,
+      31,
+      37
+    ],
+    "sources": 4
   }
 ]
