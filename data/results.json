@@ -260,5 +260,31 @@
       37
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-03-21",
+    "filtered_mean": 126.458,
+    "sample_size": 1024,
+    "filtered_size": 500,
+    "sigma_a": 7.18,
+    "solar_bz": 4.3183,
+    "solar_density": 15.6183,
+    "solar_speed": 511.03,
+    "solar_temp": 169245.8,
+    "sigma_b": 80.5989,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "LOSE",
+    "word_ja": "喪失",
+    "lotto": [
+      11,
+      15,
+      18,
+      24,
+      26,
+      28,
+      34
+    ],
+    "sources": 4
   }
 ]
