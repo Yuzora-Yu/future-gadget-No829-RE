@@ -338,5 +338,23 @@
       33
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-03-24",
+    "filtered_mean": 128.2161,
+    "sample_size": 1024,
+    "filtered_size": 523,
+    "sigma_a": 1.3497,
+    "solar_bz": -1.9402,
+    "solar_density": 0.112,
+    "solar_speed": 620.86,
+    "solar_temp": 145666.0,
+    "sigma_b": 1.5459,
+    "rank": "-",
+    "anomaly": false,
+    "word": "",
+    "word_ja": "",
+    "lotto": [],
+    "sources": 4
   }
 ]
