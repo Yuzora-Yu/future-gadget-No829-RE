@@ -356,5 +356,31 @@
     "word_ja": "",
     "lotto": [],
     "sources": 4
+  },
+  {
+    "date": "2026-03-25",
+    "filtered_mean": 130.9282,
+    "sample_size": 1024,
+    "filtered_size": 515,
+    "sigma_a": 13.563,
+    "solar_bz": -2.0252,
+    "solar_density": 0.121,
+    "solar_speed": 537.87,
+    "solar_temp": 87179.2,
+    "sigma_b": 0.5364,
+    "rank": "B",
+    "anomaly": true,
+    "word": "READY",
+    "word_ja": "準備完了",
+    "lotto": [
+      2,
+      13,
+      15,
+      16,
+      19,
+      20,
+      22
+    ],
+    "sources": 4
   }
 ]
