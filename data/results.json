@@ -382,5 +382,31 @@
       22
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-03-26",
+    "filtered_mean": 123.5184,
+    "sample_size": 1024,
+    "filtered_size": 488,
+    "sigma_a": 20.8457,
+    "solar_bz": 0.2588,
+    "solar_density": 0.0982,
+    "solar_speed": 479.91,
+    "solar_temp": 64721.3,
+    "sigma_b": 1.0973,
+    "rank": "B",
+    "anomaly": true,
+    "word": "ALERT",
+    "word_ja": "警戒",
+    "lotto": [
+      2,
+      10,
+      15,
+      17,
+      22,
+      32,
+      34
+    ],
+    "sources": 4
   }
 ]
