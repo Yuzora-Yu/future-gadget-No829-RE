@@ -434,5 +434,31 @@
       36
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-03-28",
+    "filtered_mean": 128.0717,
+    "sample_size": 1024,
+    "filtered_size": 516,
+    "sigma_a": 0.2984,
+    "solar_bz": null,
+    "solar_density": 0.3935,
+    "solar_speed": 378.52,
+    "solar_temp": 63843.2,
+    "sigma_b": 2.5428,
+    "rank": "C",
+    "anomaly": true,
+    "word": "CARRY",
+    "word_ja": "継続せよ",
+    "lotto": [
+      2,
+      11,
+      14,
+      19,
+      22,
+      24,
+      29
+    ],
+    "sources": 3
   }
 ]
