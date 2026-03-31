@@ -512,5 +512,31 @@
       34
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-03-31",
+    "filtered_mean": 125.877,
+    "sample_size": 1024,
+    "filtered_size": 504,
+    "sigma_a": 9.8931,
+    "solar_bz": null,
+    "solar_density": 2.5547,
+    "solar_speed": 438.45,
+    "solar_temp": 74807.2,
+    "sigma_b": 18.9139,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "WAIT",
+    "word_ja": "待機せよ",
+    "lotto": [
+      7,
+      11,
+      16,
+      19,
+      25,
+      30,
+      32
+    ],
+    "sources": 3
   }
 ]
