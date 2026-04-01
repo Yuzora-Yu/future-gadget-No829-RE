@@ -538,5 +538,31 @@
       32
     ],
     "sources": 3
+  },
+  {
+    "date": "2026-04-01",
+    "filtered_mean": 125.3353,
+    "sample_size": 1024,
+    "filtered_size": 519,
+    "sigma_a": 12.4086,
+    "solar_bz": -1.9515,
+    "solar_density": 2.9367,
+    "solar_speed": 388.6,
+    "solar_temp": 59738.8,
+    "sigma_b": 14.9163,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "TRACE",
+    "word_ja": "追跡せよ",
+    "lotto": [
+      8,
+      9,
+      22,
+      24,
+      25,
+      31,
+      33
+    ],
+    "sources": 4
   }
 ]
