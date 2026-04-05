@@ -642,5 +642,31 @@
       35
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-04-05",
+    "filtered_mean": 127.9644,
+    "sample_size": 1024,
+    "filtered_size": 478,
+    "sigma_a": 0.1999,
+    "solar_bz": 1.1112,
+    "solar_density": 1.3838,
+    "solar_speed": 551.37,
+    "solar_temp": 75411.2,
+    "sigma_b": 7.4303,
+    "rank": "B",
+    "anomaly": true,
+    "word": "RETURN",
+    "word_ja": "帰還せよ",
+    "lotto": [
+      9,
+      18,
+      20,
+      21,
+      24,
+      31,
+      37
+    ],
+    "sources": 4
   }
 ]
