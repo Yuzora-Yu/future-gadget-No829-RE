@@ -668,5 +668,31 @@
       37
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-04-06",
+    "filtered_mean": 130.4275,
+    "sample_size": 1024,
+    "filtered_size": 517,
+    "sigma_a": 11.2379,
+    "solar_bz": -0.466,
+    "solar_density": 1.1598,
+    "solar_speed": 520.28,
+    "solar_temp": 148464.0,
+    "sigma_b": 5.8232,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "BIND",
+    "word_ja": "束縛",
+    "lotto": [
+      3,
+      16,
+      22,
+      28,
+      30,
+      33,
+      36
+    ],
+    "sources": 4
   }
 ]
