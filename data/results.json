@@ -746,5 +746,31 @@
       37
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-04-09",
+    "filtered_mean": 125.5892,
+    "sample_size": 1024,
+    "filtered_size": 499,
+    "sigma_a": 11.2296,
+    "solar_bz": -0.4622,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 1.8567,
+    "rank": "B",
+    "anomaly": true,
+    "word": "EAST",
+    "word_ja": "東",
+    "lotto": [
+      1,
+      5,
+      14,
+      19,
+      20,
+      27,
+      31
+    ],
+    "sources": 4
   }
 ]
