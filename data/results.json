@@ -772,5 +772,31 @@
       31
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-04-10",
+    "filtered_mean": 124.9708,
+    "sample_size": 1024,
+    "filtered_size": 514,
+    "sigma_a": 14.1012,
+    "solar_bz": -1.5827,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 0.1716,
+    "rank": "B",
+    "anomaly": true,
+    "word": "PAUSE",
+    "word_ja": "一時停止",
+    "lotto": [
+      5,
+      7,
+      11,
+      18,
+      19,
+      25,
+      26
+    ],
+    "sources": 4
   }
 ]
