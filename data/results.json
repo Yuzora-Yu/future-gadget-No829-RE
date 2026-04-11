@@ -798,5 +798,31 @@
       26
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-04-11",
+    "filtered_mean": 128.4816,
+    "sample_size": 1024,
+    "filtered_size": 515,
+    "sigma_a": 2.2018,
+    "solar_bz": 3.105,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 4.8143,
+    "rank": "S",
+    "anomaly": true,
+    "word": "MOVE",
+    "word_ja": "移動せよ",
+    "lotto": [
+      7,
+      19,
+      20,
+      22,
+      24,
+      25,
+      27
+    ],
+    "sources": 4
   }
 ]
