@@ -928,5 +928,31 @@
       34
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-04-16",
+    "filtered_mean": 132.6552,
+    "sample_size": 1024,
+    "filtered_size": 496,
+    "sigma_a": 21.5826,
+    "solar_bz": -1.2368,
+    "solar_density": 1.7617,
+    "solar_speed": 333.76,
+    "solar_temp": 63165.9,
+    "sigma_b": 9.1775,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "MARK",
+    "word_ja": "記録せよ",
+    "lotto": [
+      10,
+      15,
+      24,
+      25,
+      28,
+      31,
+      37
+    ],
+    "sources": 4
   }
 ]
