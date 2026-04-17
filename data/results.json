@@ -954,5 +954,31 @@
       37
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-04-17",
+    "filtered_mean": 129.5146,
+    "sample_size": 1024,
+    "filtered_size": 478,
+    "sigma_a": 6.9987,
+    "solar_bz": 0.5343,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 2.2369,
+    "rank": "S",
+    "anomaly": true,
+    "word": "DOUBT",
+    "word_ja": "疑念",
+    "lotto": [
+      5,
+      8,
+      16,
+      19,
+      20,
+      24,
+      27
+    ],
+    "sources": 4
   }
 ]
