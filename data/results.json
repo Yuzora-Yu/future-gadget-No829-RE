@@ -1110,5 +1110,23 @@
       28
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-04-23",
+    "filtered_mean": 127.9205,
+    "sample_size": 1024,
+    "filtered_size": 528,
+    "sigma_a": 0.4038,
+    "solar_bz": -1.407,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 0.4359,
+    "rank": "-",
+    "anomaly": false,
+    "word": "",
+    "word_ja": "",
+    "lotto": [],
+    "sources": 4
   }
 ]
