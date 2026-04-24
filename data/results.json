@@ -1128,5 +1128,31 @@
     "word_ja": "",
     "lotto": [],
     "sources": 4
+  },
+  {
+    "date": "2026-04-24",
+    "filtered_mean": 129.8439,
+    "sample_size": 1024,
+    "filtered_size": 487,
+    "sigma_a": 9.4716,
+    "solar_bz": 0.5458,
+    "solar_density": 2.1802,
+    "solar_speed": 391.42,
+    "solar_temp": 50122.0,
+    "sigma_b": 11.6792,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "CROSS",
+    "word_ja": "交差点",
+    "lotto": [
+      5,
+      10,
+      17,
+      21,
+      25,
+      29,
+      37
+    ],
+    "sources": 4
   }
 ]
