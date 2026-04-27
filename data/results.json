@@ -1206,5 +1206,31 @@
       36
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-04-27",
+    "filtered_mean": 126.7178,
+    "sample_size": 1024,
+    "filtered_size": 489,
+    "sigma_a": 6.5002,
+    "solar_bz": 1.5327,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 3.5255,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "CALM",
+    "word_ja": "静穏",
+    "lotto": [
+      10,
+      13,
+      26,
+      28,
+      33,
+      34,
+      36
+    ],
+    "sources": 4
   }
 ]
