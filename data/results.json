@@ -1414,5 +1414,31 @@
       35
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-05-05",
+    "filtered_mean": 125.0228,
+    "sample_size": 1024,
+    "filtered_size": 483,
+    "sigma_a": 15.1602,
+    "solar_bz": -2.7582,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 1.8664,
+    "rank": "B",
+    "anomaly": true,
+    "word": "TRUST",
+    "word_ja": "信頼せよ",
+    "lotto": [
+      8,
+      9,
+      13,
+      16,
+      19,
+      27,
+      31
+    ],
+    "sources": 4
   }
 ]
