@@ -1674,5 +1674,31 @@
       34
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-05-15",
+    "filtered_mean": 129.3573,
+    "sample_size": 1024,
+    "filtered_size": 515,
+    "sigma_a": 6.9854,
+    "solar_bz": 2.0918,
+    "solar_density": 3.7087,
+    "solar_speed": 401.96,
+    "solar_temp": 107726.4,
+    "sigma_b": 20.1028,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "ROOT",
+    "word_ja": "原点",
+    "lotto": [
+      1,
+      5,
+      16,
+      26,
+      28,
+      31,
+      33
+    ],
+    "sources": 4
   }
 ]
