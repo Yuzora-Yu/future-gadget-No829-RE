@@ -1700,5 +1700,31 @@
       33
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-05-16",
+    "filtered_mean": 125.8091,
+    "sample_size": 1024,
+    "filtered_size": 508,
+    "sigma_a": 11.1429,
+    "solar_bz": -0.2528,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 2.311,
+    "rank": "S",
+    "anomaly": true,
+    "word": "LEAVE",
+    "word_ja": "離脱せよ",
+    "lotto": [
+      1,
+      4,
+      10,
+      11,
+      17,
+      18,
+      19
+    ],
+    "sources": 4
   }
 ]
