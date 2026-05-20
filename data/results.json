@@ -1804,5 +1804,31 @@
       37
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-05-20",
+    "filtered_mean": 130.6035,
+    "sample_size": 1024,
+    "filtered_size": 512,
+    "sigma_a": 13.3525,
+    "solar_bz": 0.018,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 1.8418,
+    "rank": "B",
+    "anomaly": true,
+    "word": "BRIDGE",
+    "word_ja": "架橋",
+    "lotto": [
+      6,
+      11,
+      13,
+      15,
+      25,
+      26,
+      28
+    ],
+    "sources": 4
   }
 ]
