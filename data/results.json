@@ -1856,5 +1856,31 @@
       33
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-05-22",
+    "filtered_mean": 130.2037,
+    "sample_size": 1024,
+    "filtered_size": 491,
+    "sigma_a": 11.3098,
+    "solar_bz": -2.5745,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 1.5602,
+    "rank": "B",
+    "anomaly": true,
+    "word": "SPLIT",
+    "word_ja": "分岐",
+    "lotto": [
+      7,
+      15,
+      20,
+      21,
+      24,
+      31,
+      33
+    ],
+    "sources": 4
   }
 ]
