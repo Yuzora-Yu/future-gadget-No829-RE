@@ -1882,5 +1882,31 @@
       33
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-05-23",
+    "filtered_mean": 125.1911,
+    "sample_size": 1024,
+    "filtered_size": 518,
+    "sigma_a": 14.3003,
+    "solar_bz": -0.8642,
+    "solar_density": 2.5425,
+    "solar_speed": 343.87,
+    "solar_temp": 27683.1,
+    "sigma_b": 13.3683,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "EAST",
+    "word_ja": "東",
+    "lotto": [
+      2,
+      23,
+      25,
+      28,
+      29,
+      33,
+      36
+    ],
+    "sources": 4
   }
 ]
