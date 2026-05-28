@@ -2012,5 +2012,31 @@
       32
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-05-28",
+    "filtered_mean": 125.99,
+    "sample_size": 1024,
+    "filtered_size": 499,
+    "sigma_a": 10.2186,
+    "solar_bz": -2.2382,
+    "solar_density": 4.9018,
+    "solar_speed": 377.74,
+    "solar_temp": 80178.9,
+    "sigma_b": 25.3159,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "WATCH",
+    "word_ja": "監視せよ",
+    "lotto": [
+      1,
+      4,
+      5,
+      20,
+      21,
+      25,
+      37
+    ],
+    "sources": 4
   }
 ]
