@@ -2038,5 +2038,31 @@
       37
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-05-29",
+    "filtered_mean": 126.9402,
+    "sample_size": 1024,
+    "filtered_size": 502,
+    "sigma_a": 5.3639,
+    "solar_bz": -1.4395,
+    "solar_density": 2.961,
+    "solar_speed": 411.76,
+    "solar_temp": 77654.2,
+    "sigma_b": 14.929,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "RISE",
+    "word_ja": "上昇せよ",
+    "lotto": [
+      3,
+      6,
+      7,
+      15,
+      26,
+      36,
+      37
+    ],
+    "sources": 4
   }
 ]
