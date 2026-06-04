@@ -2194,5 +2194,31 @@
       34
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-04",
+    "filtered_mean": 124.5877,
+    "sample_size": 1024,
+    "filtered_size": 519,
+    "sigma_a": 17.3832,
+    "solar_bz": 0.8877,
+    "solar_density": 3.1797,
+    "solar_speed": 402.43,
+    "solar_temp": 193393.3,
+    "sigma_b": 16.9225,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "ECHO",
+    "word_ja": "残響",
+    "lotto": [
+      2,
+      11,
+      22,
+      29,
+      32,
+      33,
+      34
+    ],
+    "sources": 4
   }
 ]
