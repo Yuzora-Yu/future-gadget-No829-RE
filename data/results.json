@@ -2272,5 +2272,31 @@
       33
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-07",
+    "filtered_mean": 123.3555,
+    "sample_size": 1024,
+    "filtered_size": 526,
+    "sigma_a": 23.6787,
+    "solar_bz": -1.4773,
+    "solar_density": 0.9328,
+    "solar_speed": 550.74,
+    "solar_temp": 100178.2,
+    "sigma_b": 4.2497,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "BEGIN",
+    "word_ja": "開始",
+    "lotto": [
+      15,
+      20,
+      21,
+      23,
+      25,
+      27,
+      32
+    ],
+    "sources": 4
   }
 ]
