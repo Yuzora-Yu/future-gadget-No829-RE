@@ -2324,5 +2324,31 @@
       36
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-09",
+    "filtered_mean": 128.2279,
+    "sample_size": 1024,
+    "filtered_size": 487,
+    "sigma_a": 1.2152,
+    "solar_bz": -0.9767,
+    "solar_density": 2.4638,
+    "solar_speed": 435.76,
+    "solar_temp": 46287.0,
+    "sigma_b": 12.5189,
+    "rank": "B",
+    "anomaly": true,
+    "word": "LIGHT",
+    "word_ja": "光",
+    "lotto": [
+      1,
+      2,
+      3,
+      10,
+      20,
+      27,
+      33
+    ],
+    "sources": 4
   }
 ]
