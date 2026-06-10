@@ -2350,5 +2350,31 @@
       33
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-10",
+    "filtered_mean": 125.3254,
+    "sample_size": 1024,
+    "filtered_size": 507,
+    "sigma_a": 13.6142,
+    "solar_bz": -0.53,
+    "solar_density": 7.1973,
+    "solar_speed": 420.16,
+    "solar_temp": 37768.0,
+    "sigma_b": 37.2793,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "TRACE",
+    "word_ja": "追跡せよ",
+    "lotto": [
+      6,
+      19,
+      20,
+      23,
+      33,
+      34,
+      35
+    ],
+    "sources": 4
   }
 ]
