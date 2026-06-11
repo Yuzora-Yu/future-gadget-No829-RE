@@ -2376,5 +2376,31 @@
       35
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-11",
+    "filtered_mean": 129.4676,
+    "sample_size": 1024,
+    "filtered_size": 494,
+    "sigma_a": 7.549,
+    "solar_bz": -4.0932,
+    "solar_density": 15.6733,
+    "solar_speed": 390.74,
+    "solar_temp": 52749.4,
+    "sigma_b": 81.9256,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "SHIFT",
+    "word_ja": "シフト",
+    "lotto": [
+      2,
+      6,
+      8,
+      9,
+      15,
+      23,
+      37
+    ],
+    "sources": 4
   }
 ]
