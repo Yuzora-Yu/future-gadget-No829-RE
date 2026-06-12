@@ -2402,5 +2402,31 @@
       37
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-12",
+    "filtered_mean": 130.2281,
+    "sample_size": 1024,
+    "filtered_size": 513,
+    "sigma_a": 11.4345,
+    "solar_bz": -0.273,
+    "solar_density": 6.8628,
+    "solar_speed": 505.67,
+    "solar_temp": 145555.2,
+    "sigma_b": 35.3597,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "NORTH",
+    "word_ja": "北",
+    "lotto": [
+      5,
+      7,
+      9,
+      20,
+      30,
+      34,
+      35
+    ],
+    "sources": 4
   }
 ]
