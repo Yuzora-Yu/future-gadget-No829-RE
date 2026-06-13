@@ -2428,5 +2428,31 @@
       35
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-13",
+    "filtered_mean": 129.103,
+    "sample_size": 1024,
+    "filtered_size": 495,
+    "sigma_a": 5.6862,
+    "solar_bz": -1.5377,
+    "solar_density": 0.2322,
+    "solar_speed": 508.32,
+    "solar_temp": 2000.0,
+    "sigma_b": 0.4221,
+    "rank": "B",
+    "anomaly": true,
+    "word": "CYCLE",
+    "word_ja": "周期",
+    "lotto": [
+      2,
+      18,
+      26,
+      29,
+      30,
+      31,
+      32
+    ],
+    "sources": 4
   }
 ]
