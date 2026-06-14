@@ -2454,5 +2454,31 @@
       32
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-14",
+    "filtered_mean": 128.6022,
+    "sample_size": 1024,
+    "filtered_size": 543,
+    "sigma_a": 3.1275,
+    "solar_bz": -1.4798,
+    "solar_density": 9.7997,
+    "solar_speed": 535.23,
+    "solar_temp": 373474.1,
+    "sigma_b": 49.9798,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "TURN",
+    "word_ja": "転換点",
+    "lotto": [
+      4,
+      15,
+      16,
+      20,
+      21,
+      23,
+      36
+    ],
+    "sources": 4
   }
 ]
