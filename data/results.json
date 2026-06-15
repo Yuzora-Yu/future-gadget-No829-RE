@@ -2480,5 +2480,31 @@
       36
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-15",
+    "filtered_mean": 128.4991,
+    "sample_size": 1024,
+    "filtered_size": 533,
+    "sigma_a": 2.6008,
+    "solar_bz": 1.2482,
+    "solar_density": 5.713,
+    "solar_speed": 455.45,
+    "solar_temp": 160414.1,
+    "sigma_b": 29.9206,
+    "rank": "S",
+    "anomaly": true,
+    "word": "SOON",
+    "word_ja": "間もなく",
+    "lotto": [
+      9,
+      13,
+      15,
+      21,
+      26,
+      30,
+      31
+    ],
+    "sources": 4
   }
 ]
