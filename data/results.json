@@ -2532,5 +2532,31 @@
       37
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-17",
+    "filtered_mean": 128.4698,
+    "sample_size": 1024,
+    "filtered_size": 530,
+    "sigma_a": 2.4511,
+    "solar_bz": 8.7202,
+    "solar_density": 9.8358,
+    "solar_speed": 420.65,
+    "solar_temp": 58457.6,
+    "sigma_b": 54.1266,
+    "rank": "S",
+    "anomaly": true,
+    "word": "FOLD",
+    "word_ja": "収束",
+    "lotto": [
+      5,
+      6,
+      15,
+      20,
+      21,
+      32,
+      36
+    ],
+    "sources": 4
   }
 ]
