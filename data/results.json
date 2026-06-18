@@ -2558,5 +2558,31 @@
       36
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-18",
+    "filtered_mean": 124.1581,
+    "sample_size": 1024,
+    "filtered_size": 506,
+    "sigma_a": 19.5781,
+    "solar_bz": -0.027,
+    "solar_density": 5.7362,
+    "solar_speed": 420.91,
+    "solar_temp": 94001.1,
+    "sigma_b": 30.0095,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "SOUTH",
+    "word_ja": "南",
+    "lotto": [
+      9,
+      11,
+      12,
+      16,
+      24,
+      29,
+      36
+    ],
+    "sources": 4
   }
 ]
