@@ -2610,5 +2610,31 @@
       34
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-20",
+    "filtered_mean": 128.5252,
+    "sample_size": 1024,
+    "filtered_size": 497,
+    "sigma_a": 2.7341,
+    "solar_bz": -0.6828,
+    "solar_density": 4.9457,
+    "solar_speed": 383.93,
+    "solar_temp": 61602.2,
+    "sigma_b": 25.7153,
+    "rank": "S",
+    "anomaly": true,
+    "word": "SAFE",
+    "word_ja": "安全",
+    "lotto": [
+      5,
+      16,
+      24,
+      27,
+      29,
+      31,
+      35
+    ],
+    "sources": 4
   }
 ]
