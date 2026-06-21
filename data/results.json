@@ -2636,5 +2636,31 @@
       35
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-21",
+    "filtered_mean": 122.7976,
+    "sample_size": 1024,
+    "filtered_size": 504,
+    "sigma_a": 26.5291,
+    "solar_bz": -1.1863,
+    "solar_density": 5.538,
+    "solar_speed": 380.25,
+    "solar_temp": 65608.4,
+    "sigma_b": 28.5098,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "SEEK",
+    "word_ja": "探索せよ",
+    "lotto": [
+      3,
+      8,
+      18,
+      19,
+      21,
+      30,
+      31
+    ],
+    "sources": 4
   }
 ]
