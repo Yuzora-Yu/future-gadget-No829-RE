@@ -2662,5 +2662,31 @@
       31
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-22",
+    "filtered_mean": 126.1036,
+    "sample_size": 1024,
+    "filtered_size": 521,
+    "sigma_a": 9.6382,
+    "solar_bz": 0.9442,
+    "solar_density": 4.3792,
+    "solar_speed": 361.69,
+    "solar_temp": 107431.1,
+    "sigma_b": 23.3072,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "CLOSE",
+    "word_ja": "閉鎖",
+    "lotto": [
+      3,
+      5,
+      11,
+      14,
+      16,
+      20,
+      26
+    ],
+    "sources": 4
   }
 ]
