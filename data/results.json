@@ -2740,5 +2740,31 @@
       33
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-25",
+    "filtered_mean": 131.6347,
+    "sample_size": 1024,
+    "filtered_size": 501,
+    "sigma_a": 18.6211,
+    "solar_bz": 1.2638,
+    "solar_density": 0.6515,
+    "solar_speed": 555.87,
+    "solar_temp": 10088.0,
+    "sigma_b": 3.8038,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "HIGH",
+    "word_ja": "上昇",
+    "lotto": [
+      1,
+      7,
+      9,
+      18,
+      28,
+      30,
+      36
+    ],
+    "sources": 4
   }
 ]
