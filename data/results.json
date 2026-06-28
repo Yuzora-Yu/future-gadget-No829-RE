@@ -2818,5 +2818,31 @@
       33
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-28",
+    "filtered_mean": 125.5126,
+    "sample_size": 1024,
+    "filtered_size": 515,
+    "sigma_a": 12.6577,
+    "solar_bz": -1.4872,
+    "solar_density": 8.8667,
+    "solar_speed": 514.45,
+    "solar_temp": 317569.9,
+    "sigma_b": 45.0709,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "DARK",
+    "word_ja": "暗転",
+    "lotto": [
+      3,
+      5,
+      16,
+      24,
+      26,
+      28,
+      36
+    ],
+    "sources": 4
   }
 ]
