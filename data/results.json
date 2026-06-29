@@ -2844,5 +2844,31 @@
       36
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-06-29",
+    "filtered_mean": 127.1527,
+    "sample_size": 1024,
+    "filtered_size": 524,
+    "sigma_a": 4.2782,
+    "solar_bz": -0.2872,
+    "solar_density": 3.303,
+    "solar_speed": 432.25,
+    "solar_temp": 97989.2,
+    "sigma_b": 17.251,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "END",
+    "word_ja": "終端",
+    "lotto": [
+      1,
+      16,
+      25,
+      27,
+      35,
+      36,
+      37
+    ],
+    "sources": 4
   }
 ]
