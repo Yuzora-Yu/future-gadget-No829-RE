@@ -2896,5 +2896,31 @@
       34
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-07-01",
+    "filtered_mean": 129.8267,
+    "sample_size": 1024,
+    "filtered_size": 525,
+    "sigma_a": 9.3837,
+    "solar_bz": 3.4727,
+    "solar_density": 12.3175,
+    "solar_speed": 427.85,
+    "solar_temp": 54457.2,
+    "sigma_b": 64.9699,
+    "rank": "SS",
+    "anomaly": true,
+    "word": "HOLD",
+    "word_ja": "保留",
+    "lotto": [
+      1,
+      5,
+      12,
+      14,
+      18,
+      22,
+      36
+    ],
+    "sources": 4
   }
 ]
