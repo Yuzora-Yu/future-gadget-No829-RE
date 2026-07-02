@@ -2922,5 +2922,31 @@
       36
     ],
     "sources": 4
+  },
+  {
+    "date": "2026-07-02",
+    "filtered_mean": 120.9779,
+    "sample_size": 1024,
+    "filtered_size": 498,
+    "sigma_a": 35.8263,
+    "solar_bz": null,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 0.0,
+    "rank": "B",
+    "anomaly": true,
+    "word": "WAVE",
+    "word_ja": "波動",
+    "lotto": [
+      5,
+      8,
+      9,
+      17,
+      20,
+      21,
+      36
+    ],
+    "sources": 3
   }
 ]
