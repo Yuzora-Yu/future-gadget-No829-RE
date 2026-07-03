@@ -2948,5 +2948,31 @@
       36
     ],
     "sources": 3
+  },
+  {
+    "date": "2026-07-03",
+    "filtered_mean": 130.2045,
+    "sample_size": 1024,
+    "filtered_size": 533,
+    "sigma_a": 11.3139,
+    "solar_bz": null,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 0.0,
+    "rank": "B",
+    "anomaly": true,
+    "word": "GATE",
+    "word_ja": "ゲート",
+    "lotto": [
+      4,
+      5,
+      15,
+      21,
+      24,
+      26,
+      34
+    ],
+    "sources": 3
   }
 ]
