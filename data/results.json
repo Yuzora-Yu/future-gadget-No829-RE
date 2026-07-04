@@ -2974,5 +2974,23 @@
       34
     ],
     "sources": 3
+  },
+  {
+    "date": "2026-07-04",
+    "filtered_mean": 128.2676,
+    "sample_size": 1024,
+    "filtered_size": 512,
+    "sigma_a": 1.418,
+    "solar_bz": null,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 0.0,
+    "rank": "-",
+    "anomaly": false,
+    "word": "",
+    "word_ja": "",
+    "lotto": [],
+    "sources": 3
   }
 ]
