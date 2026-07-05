@@ -2992,5 +2992,31 @@
     "word_ja": "",
     "lotto": [],
     "sources": 3
+  },
+  {
+    "date": "2026-07-05",
+    "filtered_mean": 126.9076,
+    "sample_size": 1024,
+    "filtered_size": 541,
+    "sigma_a": 5.4672,
+    "solar_bz": null,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 0.0,
+    "rank": "B",
+    "anomaly": true,
+    "word": "LEAVE",
+    "word_ja": "離脱せよ",
+    "lotto": [
+      1,
+      17,
+      22,
+      26,
+      30,
+      32,
+      35
+    ],
+    "sources": 3
   }
 ]
