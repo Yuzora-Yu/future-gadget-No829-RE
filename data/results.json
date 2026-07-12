@@ -3148,5 +3148,31 @@
       37
     ],
     "sources": 3
+  },
+  {
+    "date": "2026-07-12",
+    "filtered_mean": 129.2645,
+    "sample_size": 1024,
+    "filtered_size": 518,
+    "sigma_a": 5.949,
+    "solar_bz": null,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 0.0,
+    "rank": "B",
+    "anomaly": true,
+    "word": "TRUST",
+    "word_ja": "信頼せよ",
+    "lotto": [
+      6,
+      9,
+      16,
+      18,
+      22,
+      23,
+      24
+    ],
+    "sources": 3
   }
 ]
