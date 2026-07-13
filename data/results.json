@@ -3174,5 +3174,31 @@
       24
     ],
     "sources": 3
+  },
+  {
+    "date": "2026-07-13",
+    "filtered_mean": 129.4773,
+    "sample_size": 1024,
+    "filtered_size": 507,
+    "sigma_a": 6.9797,
+    "solar_bz": null,
+    "solar_density": null,
+    "solar_speed": null,
+    "solar_temp": null,
+    "sigma_b": 0.0,
+    "rank": "B",
+    "anomaly": true,
+    "word": "WEST",
+    "word_ja": "西",
+    "lotto": [
+      2,
+      8,
+      9,
+      12,
+      22,
+      32,
+      33
+    ],
+    "sources": 3
   }
 ]
