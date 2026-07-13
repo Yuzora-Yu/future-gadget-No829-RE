@@ -3,288 +3,203 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#05070b">
+<meta name="theme-color" content="#071018">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="176248">
+<meta name="apple-mobile-web-app-title" content="Signal Receiver">
+<meta name="description" content="A frozen, placebo-controlled temporal signal experiment.">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>176248 — Temporal Signal Receiver</title>
+<title>Temporal Signal Receiver</title>
 <style>
 :root{
-  --bg:#05070b;--panel:#090d14;--panel2:#0d131d;--line:#1b2636;
-  --text:#b8c7d9;--muted:#607187;--faint:#29384a;--ice:#9bd7ff;
-  --cyan:#42c8ff;--green:#62e6b5;--amber:#ffc857;--red:#ff5f70;
-  --violet:#b69cff;--mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  --bg:#05090f;--bg2:#071018;--panel:rgba(12,20,31,.86);--panel-strong:#0d1723;
+  --line:rgba(157,198,228,.14);--line-strong:rgba(94,207,255,.34);
+  --text:#e9f3fb;--body:#afc1cf;--muted:#708493;--faint:#405463;
+  --cyan:#58d2ff;--ice:#b8ebff;--green:#63e8ba;--amber:#ffc867;--red:#ff6f82;--violet:#b9a4ff;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  --sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;
 }
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box}
 html{background:var(--bg);scroll-behavior:smooth}
-body{min-height:100dvh;background:
-  radial-gradient(circle at 50% -10%,rgba(66,200,255,.10),transparent 35rem),
-  linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px),var(--bg);
-  background-size:auto,32px 32px,32px 32px,auto;color:var(--text);font-family:var(--mono);
-  padding-bottom:env(safe-area-inset-bottom);letter-spacing:.02em}
-body:after{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.10) 3px 4px)}
-a{color:inherit}
-button{font:inherit}
-.shell{width:min(1080px,calc(100% - 28px));margin:0 auto;padding:24px 0 64px}
-.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:8px 0 18px;border-bottom:1px solid var(--line)}
-.kicker{font-size:10px;color:var(--cyan);letter-spacing:.28em;text-transform:uppercase}
-.title{font-size:13px;font-weight:500;letter-spacing:.18em;margin-top:7px;color:#e5f1ff}
-.tagline{font-size:9px;color:var(--muted);margin-top:6px;line-height:1.65}
-.status{display:flex;align-items:center;gap:8px;border:1px solid var(--line);padding:7px 10px;font-size:9px;color:var(--muted);white-space:nowrap}
-.status-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);box-shadow:0 0 0 3px rgba(96,113,135,.08)}
-.status.live{color:var(--green);border-color:rgba(98,230,181,.35)}
-.status.live .status-dot{background:var(--green);box-shadow:0 0 12px rgba(98,230,181,.8)}
-.status.warn{color:var(--amber);border-color:rgba(255,200,87,.35)}
-.status.warn .status-dot{background:var(--amber)}
-.hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:16px;margin:18px 0}
-.panel{background:linear-gradient(180deg,rgba(13,19,29,.94),rgba(9,13,20,.94));border:1px solid var(--line);position:relative;overflow:hidden}
-.panel:before{content:"";position:absolute;left:0;top:0;width:46px;height:1px;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
-.key-panel{padding:28px 28px 24px;min-height:300px;display:flex;flex-direction:column;justify-content:space-between}
-.eyebrow{font-size:9px;letter-spacing:.26em;color:var(--muted);text-transform:uppercase}
-.key{font-size:clamp(52px,10vw,116px);line-height:.9;letter-spacing:-.07em;color:#eaf6ff;text-shadow:0 0 24px rgba(66,200,255,.16);margin:24px 0 18px}
-.key small{font-size:.12em;letter-spacing:.22em;color:var(--cyan);display:block;margin-top:17px;text-transform:uppercase}
-.thesis{font-family:var(--mono);font-size:12px;line-height:1.9;color:#9fb2c7;max-width:680px}
-.thesis strong{color:#eaf6ff;font-weight:500}
-.protocol-strip{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
-.chip{font-size:8px;letter-spacing:.14em;color:var(--muted);border:1px solid var(--line);padding:6px 8px;background:rgba(5,7,11,.55)}
-.receiver{padding:22px;display:flex;flex-direction:column;min-height:300px}
-.receiver-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.rank{font-size:36px;color:var(--muted);line-height:1}
-.rank[data-rank="SS"]{color:var(--red);text-shadow:0 0 18px rgba(255,95,112,.5)}
-.rank[data-rank="S"]{color:var(--amber)}
-.rank[data-rank="A"]{color:#ffe890}.rank[data-rank="B"]{color:var(--violet)}.rank[data-rank="C"]{color:var(--cyan)}
-.lock{font-size:8px;letter-spacing:.16em;padding:5px 7px;border:1px solid var(--line);color:var(--muted)}
-.lock.on{color:var(--red);border-color:rgba(255,95,112,.55);animation:pulse 1.8s infinite}
-@keyframes pulse{50%{box-shadow:0 0 18px rgba(255,95,112,.22)}}
-.numbers-label{font-size:9px;letter-spacing:.2em;color:var(--muted);margin-top:30px}
-.numbers{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 22px;min-height:44px}
-.ball{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(66,200,255,.55);color:#eaf6ff;background:radial-gradient(circle at 35% 28%,rgba(155,215,255,.18),rgba(66,200,255,.04) 55%,transparent 70%);box-shadow:inset 0 0 16px rgba(66,200,255,.08);font-size:13px}
-.no-signal{font-size:12px;color:var(--muted);align-self:center;padding:13px 0}
-.meter{margin-top:auto}
-.meter-row{display:flex;justify-content:space-between;gap:8px;font-size:9px;color:var(--muted);margin-bottom:7px}
-.meter-track{height:5px;background:#05080d;border:1px solid var(--line);overflow:hidden}
-.meter-fill{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--ice));box-shadow:0 0 12px rgba(66,200,255,.5);transition:width .5s ease}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:16px}
-.metric{background:var(--panel);padding:16px 14px;min-height:90px}
-.metric .label{font-size:8px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
-.metric .value{font-size:24px;color:#e4f1ff;margin-top:10px;line-height:1}
-.metric .subvalue{font-size:8px;color:var(--muted);margin-top:8px}
-.content-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:16px;margin-bottom:16px}
-.section{padding:18px}
-.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
-.section-title span:last-child{letter-spacing:.06em;color:var(--faint)}
-canvas{width:100%;height:190px;display:block;background:rgba(5,7,11,.55);border:1px solid var(--line)}
-.source-list{display:grid;gap:8px}
-.source{display:grid;grid-template-columns:9px 1fr auto;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);background:rgba(5,7,11,.45);font-size:9px}
-.source i{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px rgba(255,95,112,.45)}
-.source.ok i{background:var(--green);box-shadow:0 0 8px rgba(98,230,181,.45)}
-.source-name{color:#aebfd1}.source-detail{color:var(--muted);text-align:right}
-.table-wrap{overflow-x:auto;border:1px solid var(--line)}
-table{border-collapse:collapse;width:100%;min-width:820px;background:rgba(5,7,11,.35)}
-th,td{padding:11px 10px;border-bottom:1px solid rgba(27,38,54,.75);text-align:left;font-size:9px;white-space:nowrap}
-th{font-size:8px;color:var(--muted);letter-spacing:.14em;font-weight:400;background:rgba(13,19,29,.82);position:sticky;top:0}
-td{color:#9db0c4}.r{font-size:12px;color:#eaf6ff}.signal-row{background:rgba(66,200,255,.035)}
-.mini-balls{display:flex;gap:3px}.mini-ball{width:22px;height:22px;border:1px solid var(--faint);display:grid;place-items:center;color:#bdd7ed}
-.protocol{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:16px}
-.protocol-item{background:var(--panel);padding:18px;min-height:132px}
-.protocol-item b{display:block;font-size:10px;color:var(--ice);letter-spacing:.12em;margin-bottom:10px;font-weight:500}
-.protocol-item p{font-size:9px;color:var(--muted);line-height:1.75}
-.note{font-size:9px;color:var(--muted);line-height:1.8;padding:14px 16px;border-left:2px solid var(--cyan);background:rgba(66,200,255,.035);margin-bottom:16px}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:9px;letter-spacing:.12em;padding:8px 11px;cursor:pointer;text-decoration:none}
-.btn:hover{color:var(--ice);border-color:rgba(66,200,255,.5)}
-.btn.primary{color:var(--cyan);border-color:rgba(66,200,255,.45)}
-.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px;margin-top:18px;color:var(--faint);font-size:8px;letter-spacing:.11em}
-.hidden{display:none!important}
-@media(max-width:800px){.hero,.content-grid{grid-template-columns:1fr}.grid4{grid-template-columns:repeat(2,1fr)}.protocol{grid-template-columns:1fr}.key-panel{min-height:280px}.receiver{min-height:270px}}
-@media(max-width:480px){.shell{width:min(100% - 18px,1080px);padding-top:12px}.topbar{padding-top:4px}.title{font-size:11px}.tagline{max-width:240px}.key-panel{padding:22px 18px}.receiver,.section{padding:16px}.key{font-size:58px}.grid4{grid-template-columns:1fr 1fr}.metric .value{font-size:20px}.ball{width:37px;height:37px}}
+body{margin:0;min-height:100dvh;color:var(--body);font-family:var(--sans);background:
+  radial-gradient(circle at 10% -10%,rgba(88,210,255,.16),transparent 31rem),
+  radial-gradient(circle at 96% 10%,rgba(185,164,255,.10),transparent 25rem),
+  linear-gradient(180deg,var(--bg2),var(--bg) 28rem);padding-bottom:env(safe-area-inset-bottom)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.20;background-image:
+  linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,black,transparent 75%)}
+a{color:inherit}.hidden{display:none!important}button{font:inherit}
+.shell{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:18px 0 72px;position:relative}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:58px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{width:34px;height:34px;border:1px solid var(--line-strong);border-radius:11px;display:grid;place-items:center;color:var(--cyan);font:600 13px var(--mono);box-shadow:inset 0 0 18px rgba(88,210,255,.08),0 0 24px rgba(88,210,255,.06)}
+.brand-copy{min-width:0}.kicker{font:600 9px var(--mono);letter-spacing:.22em;color:var(--cyan);text-transform:uppercase}.title{margin:4px 0 0;font:600 13px var(--mono);letter-spacing:.12em;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 11px;font:600 9px var(--mono);letter-spacing:.08em;color:var(--muted);white-space:nowrap;background:rgba(5,9,15,.55)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--muted)}.status.live{color:var(--green);border-color:rgba(99,232,186,.30)}.status.live .status-dot{background:var(--green);box-shadow:0 0 13px rgba(99,232,186,.75)}.status.warn{color:var(--amber);border-color:rgba(255,200,103,.30)}.status.warn .status-dot{background:var(--amber)}
+.hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(330px,.88fr);gap:14px;margin-top:16px}
+.card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(15,27,40,.94),rgba(8,14,23,.90));box-shadow:0 20px 70px rgba(0,0,0,.22)}
+.card:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,rgba(255,255,255,.035),transparent 25%,transparent 75%,rgba(88,210,255,.025))}
+.intro{padding:34px;min-height:360px;display:flex;flex-direction:column;justify-content:space-between}
+.eyebrow{font:600 9px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.anchor-line{display:flex;align-items:center;gap:12px;margin:28px 0 20px}.anchor-seal{width:54px;height:54px;border-radius:18px;border:1px solid var(--line-strong);display:grid;place-items:center;color:var(--cyan);font:700 20px var(--mono);background:rgba(88,210,255,.045);box-shadow:inset 0 0 22px rgba(88,210,255,.08)}
+.anchor-copy b{display:block;color:var(--text);font:600 clamp(24px,4vw,46px)/1.05 var(--sans);letter-spacing:-.035em}.anchor-copy span{display:block;margin-top:7px;color:var(--cyan);font:600 9px var(--mono);letter-spacing:.16em;text-transform:uppercase}
+.thesis{max-width:700px;margin:0;color:#b7c8d4;font-size:13px;line-height:1.95}.thesis strong{color:var(--text);font-weight:600}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}.chip{padding:7px 9px;border:1px solid var(--line);border-radius:999px;background:rgba(5,9,15,.38);color:var(--muted);font:600 8px var(--mono);letter-spacing:.10em}
+.receiver{padding:24px;min-height:360px;display:flex;flex-direction:column}.receiver-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.latest-date{margin-top:7px;color:var(--muted);font:500 10px var(--mono)}
+.rank-wrap{text-align:right}.lock{display:inline-flex;align-items:center;min-height:25px;padding:0 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font:600 8px var(--mono);letter-spacing:.12em}.lock.on{color:var(--red);border-color:rgba(255,111,130,.45);box-shadow:0 0 18px rgba(255,111,130,.12)}
+.rank{margin-top:9px;color:var(--muted);font:700 45px/1 var(--mono);letter-spacing:-.06em}.rank[data-rank="SS"]{color:var(--red);text-shadow:0 0 20px rgba(255,111,130,.38)}.rank[data-rank="S"]{color:var(--amber)}.rank[data-rank="A"]{color:#ffe891}.rank[data-rank="B"]{color:var(--violet)}.rank[data-rank="C"]{color:var(--cyan)}
+.numbers-label{margin-top:32px;color:var(--muted);font:600 9px var(--mono);letter-spacing:.18em}.numbers{display:flex;gap:8px;flex-wrap:wrap;align-items:center;min-height:52px;margin:13px 0 24px}.ball{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--text);font:700 13px var(--mono);border:1px solid rgba(88,210,255,.50);background:radial-gradient(circle at 32% 25%,rgba(184,235,255,.22),rgba(88,210,255,.055) 48%,rgba(5,9,15,.35) 72%);box-shadow:inset 0 0 18px rgba(88,210,255,.08),0 7px 20px rgba(0,0,0,.18)}.no-signal{color:var(--muted);font:500 11px var(--mono)}
+.meter{margin-top:auto}.meter-row{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;color:var(--muted);font:600 9px var(--mono);letter-spacing:.05em}.meter-track{height:7px;padding:1px;border:1px solid var(--line);border-radius:999px;background:rgba(3,6,10,.5);overflow:hidden}.meter-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--ice));box-shadow:0 0 15px rgba(88,210,255,.45);transition:width .5s ease}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.metric{padding:16px 17px;min-height:104px;border:1px solid var(--line);border-radius:17px;background:rgba(10,18,28,.74)}.metric-label{color:var(--muted);font:600 8px var(--mono);letter-spacing:.14em;text-transform:uppercase}.metric-value{margin-top:13px;color:var(--text);font:700 25px/1 var(--mono);letter-spacing:-.03em}.metric-sub{margin-top:9px;color:var(--faint);font:500 8px/1.45 var(--mono)}
+.content{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(310px,.8fr);gap:14px;margin-top:14px}.section{padding:20px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.section-title{color:var(--text);font:600 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}.section-meta{color:var(--muted);font:500 8px var(--mono);letter-spacing:.05em;text-align:right}
+canvas{width:100%;height:220px;display:block;border:1px solid var(--line);border-radius:14px;background:rgba(3,7,12,.42)}
+.source-list{display:grid;gap:8px}.source{display:grid;grid-template-columns:9px minmax(0,1fr) auto;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(3,7,12,.34);font:500 9px var(--mono)}.source i{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 10px rgba(255,111,130,.36)}.source.ok i{background:var(--green);box-shadow:0 0 10px rgba(99,232,186,.42)}.source-name{color:#b9cbd7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.source-detail{max-width:150px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.protocol{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.protocol-item{padding:18px;border:1px solid var(--line);border-radius:17px;background:rgba(10,18,28,.66)}.protocol-item b{display:block;color:var(--ice);font:600 9px var(--mono);letter-spacing:.12em}.protocol-item p{margin:11px 0 0;color:var(--muted);font-size:10px;line-height:1.75}
+.note{margin-top:10px;padding:15px 17px;border:1px solid rgba(88,210,255,.16);border-radius:16px;background:rgba(88,210,255,.035);color:#8298a7;font-size:10px;line-height:1.8}
+.log-card{margin-top:14px;padding:20px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{width:100%;min-width:860px;border-collapse:collapse;background:rgba(3,7,12,.27)}th,td{padding:11px 10px;border-bottom:1px solid rgba(157,198,228,.10);text-align:left;white-space:nowrap;font:500 9px var(--mono)}th{position:sticky;top:0;background:#0d1723;color:var(--muted);font-size:8px;letter-spacing:.10em}td{color:#9eb2c0}.r{font-size:12px;color:var(--text)}.signal-row{background:rgba(88,210,255,.035)}.mini-balls{display:flex;gap:3px}.mini-ball{width:23px;height:23px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:#c5dcea;font-size:8px}
+.log-mobile{display:none;gap:9px}.log-entry{padding:14px;border:1px solid var(--line);border-radius:15px;background:rgba(3,7,12,.28)}.log-entry-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.log-entry-date{color:var(--text);font:600 10px var(--mono)}.log-entry-rank{font:700 20px var(--mono)}.log-entry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}.log-kv{padding:9px;border:1px solid rgba(157,198,228,.09);border-radius:10px}.log-kv span{display:block;color:var(--faint);font:600 7px var(--mono);letter-spacing:.08em}.log-kv b{display:block;margin-top:5px;color:#adbfcb;font:600 10px var(--mono)}.log-entry .mini-balls{margin-top:12px}
+.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px}.btn{appearance:none;text-decoration:none;cursor:pointer;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(10,18,28,.75);color:var(--muted);font:600 9px var(--mono);letter-spacing:.08em}.btn:hover{color:var(--ice);border-color:var(--line-strong)}.btn.primary{color:var(--cyan);border-color:rgba(88,210,255,.38)}
+.footer{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font:500 8px var(--mono);letter-spacing:.08em}
+@media(max-width:880px){.hero,.content{grid-template-columns:1fr}.intro,.receiver{min-height:auto}.metrics{grid-template-columns:repeat(2,1fr)}.protocol{grid-template-columns:1fr}.source-detail{max-width:220px}}
+@media(max-width:560px){
+  .shell{width:min(100% - 18px,1120px);padding-top:8px;padding-bottom:48px}.topbar{min-height:54px}.brand-mark{width:31px;height:31px;border-radius:10px}.kicker{font-size:7px}.title{font-size:10px;letter-spacing:.08em}.status{padding:7px 9px;font-size:7px}.status span:last-child{max-width:94px;overflow:hidden;text-overflow:ellipsis}
+  .hero{margin-top:10px;gap:10px}.card{border-radius:18px}.intro{padding:22px 18px}.anchor-line{margin:20px 0 16px;align-items:flex-start}.anchor-seal{width:44px;height:44px;border-radius:14px;font-size:16px;flex:0 0 auto}.anchor-copy b{font-size:29px}.anchor-copy span{font-size:7px}.thesis{font-size:11px;line-height:1.85}.chips{margin-top:18px;gap:6px}.chip{font-size:7px;padding:6px 7px}
+  .receiver{padding:19px 16px}.rank{font-size:39px}.numbers-label{margin-top:24px}.numbers{gap:6px;margin-bottom:21px}.ball{width:39px;height:39px;font-size:12px}.metrics{gap:7px;margin-top:9px}.metric{min-height:92px;padding:14px 12px;border-radius:14px}.metric-value{font-size:21px}.metric-sub{font-size:7px}.content{gap:9px;margin-top:9px}.section,.log-card{padding:16px}.section-head{align-items:flex-start}.section-meta{max-width:46%}canvas{height:188px}.source{padding:10px}.source-detail{max-width:105px}
+  .protocol{gap:7px;margin-top:9px}.protocol-item{padding:15px;border-radius:14px}.note{margin-top:7px}.table-wrap{display:none}.log-mobile{display:grid}.log-entry-grid{grid-template-columns:repeat(3,1fr)}.actions{position:sticky;bottom:calc(8px + env(safe-area-inset-bottom));z-index:20;padding:8px;border:1px solid var(--line);border-radius:15px;background:rgba(7,16,24,.91);backdrop-filter:blur(12px);box-shadow:0 12px 35px rgba(0,0,0,.28)}.btn{flex:1;text-align:center;padding:10px 8px;font-size:8px}.footer{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="shell">
   <header class="topbar">
-    <div>
-      <div class="kicker">Future Gadget No.829 / Remix</div>
-      <h1 class="title">TEMPORAL SIGNAL RECEIVER</h1>
-      <div class="tagline">A PLACEBO-CONTROLLED DECODER FOR ONE IRRATIONALLY IMPORTANT NUMBER</div>
+    <div class="brand">
+      <div class="brand-mark">829</div>
+      <div class="brand-copy">
+        <div class="kicker">Future Gadget / Remix</div>
+        <h1 class="title">TEMPORAL SIGNAL RECEIVER</h1>
+      </div>
     </div>
     <div id="systemStatus" class="status"><span class="status-dot"></span><span>INITIALIZING</span></div>
   </header>
 
-  <section class="hero">
-    <article class="panel key-panel">
-      <div>
-        <div class="eyebrow">Analysis key / fixed forever</div>
-        <div class="key">176248<small>the key was never random</small></div>
-        <p class="thesis">将来、過去へ情報を送る技術が成立するなら、<strong>未来の私はこの鍵を知っている。</strong><br>この受信機は、現在の公開情報に紛れた鍵固有の偏りを探し、対照キー127個より上位に現れた日だけ、7つの数値として復元する。</p>
-      </div>
-      <div class="protocol-strip">
-        <span class="chip">TARGET 1</span><span class="chip">PLACEBO 127</span><span class="chip">2 INDEPENDENT CHANNELS</span><span class="chip">NO RETROACTIVE TUNING</span>
-      </div>
-    </article>
-
-    <aside class="panel receiver">
-      <div class="receiver-head">
+  <main>
+    <section class="hero">
+      <article class="card intro">
         <div>
-          <div class="eyebrow">Latest receiver state</div>
-          <div id="latestDate" style="font-size:10px;color:var(--muted);margin-top:8px">NO RECORD</div>
+          <div class="eyebrow">Private anchor / fixed before observation</div>
+          <div class="anchor-line">
+            <div class="anchor-seal">∴</div>
+            <div class="anchor-copy"><b>未来からの偏りを待つ。</b><span>anchor sealed · protocol frozen</span></div>
+          </div>
+          <p class="thesis">将来、過去へ情報を送る技術が成立するなら、<strong>未来の私は私だけが知る固定アンカーを使う。</strong><br>この受信機は、現在の公開情報に紛れたアンカー固有の偏りを対照群と比較し、十分に上位へ現れた日だけ7つの数値として復元する。</p>
         </div>
-        <div style="text-align:right">
-          <div id="fridayLock" class="lock">NO LOCK</div>
-          <div id="latestRank" class="rank" data-rank="-">—</div>
+        <div class="chips"><span class="chip">PRIVATE TARGET × 1</span><span class="chip">PLACEBO × 127</span><span class="chip">DUAL CHANNEL</span><span class="chip">NO RETROACTIVE TUNING</span></div>
+      </article>
+
+      <aside class="card receiver">
+        <div class="receiver-head">
+          <div><div class="eyebrow">Latest receiver state</div><div id="latestDate" class="latest-date">NO RECORD</div></div>
+          <div class="rank-wrap"><div id="fridayLock" class="lock">NO LOCK</div><div id="latestRank" class="rank" data-rank="-">—</div></div>
         </div>
+        <div class="numbers-label">DECODED NUM7</div>
+        <div id="latestNumbers" class="numbers"><span class="no-signal">AWAITING COLLECTION</span></div>
+        <div class="meter">
+          <div class="meter-row"><span>TARGET CONTROL PERCENTILE</span><span id="percentileText">—</span></div>
+          <div class="meter-track"><div id="percentileFill" class="meter-fill"></div></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="metrics">
+      <div class="metric"><div class="metric-label">Target rank</div><div id="metricRank" class="metric-value">—</div><div class="metric-sub">among 128 frozen keys</div></div>
+      <div class="metric"><div class="metric-label">Channel A</div><div id="metricA" class="metric-value">—</div><div class="metric-sub">public entropy / ledger</div></div>
+      <div class="metric"><div class="metric-label">Channel B</div><div id="metricB" class="metric-value">—</div><div class="metric-sub">NOAA real-time solar wind</div></div>
+      <div class="metric"><div class="metric-label">Observed signals</div><div id="metricSignals" class="metric-value">0</div><div id="metricRate" class="metric-sub">null expectation 6.25%</div></div>
+    </section>
+
+    <section class="content">
+      <article class="card section">
+        <div class="section-head"><div class="section-title">Target rank history</div><div class="section-meta">LOWER IS STRONGER · THRESHOLD ≤ 8</div></div>
+        <canvas id="rankChart" aria-label="Target rank history"></canvas>
+      </article>
+      <aside class="card section">
+        <div class="section-head"><div class="section-title">Source integrity</div><div id="sourceSummary" class="section-meta">—</div></div>
+        <div id="sourceList" class="source-list"><div class="source"><i></i><span class="source-name">No record yet</span><span class="source-detail">—</span></div></div>
+      </aside>
+    </section>
+
+    <section class="protocol">
+      <div class="protocol-item"><b>01 / PRE-COMMIT</b><p>本命アンカーと対照キーは固定。観測後に鍵、閾値、抽出規則を変更しない。変更時は別プロトコルとして再開する。</p></div>
+      <div class="protocol-item"><b>02 / DETECT</b><p>同じ公開データを全128鍵で走査し、本命の順位を測定。独立2チャンネルが正常で、総合8位以内の日だけ信号とする。</p></div>
+      <div class="protocol-item"><b>03 / DECODE</b><p>信号日に限り、固定規則で1〜37から重複しない7数を選ぶ。金曜日の信号だけFRIDAY LOCKとして表示する。</p></div>
+    </section>
+    <div class="note">このページは未来通信の存在を演出するものではなく、非公開の固定アンカーが対照群より継続的に強くなるかを公開記録する実験です。偶然仮説の下での信号率は約6.25%。結果を見た後の再計算や選別は行いません。</div>
+
+    <section class="card log-card">
+      <div class="section-head"><div class="section-title">Immutable signal log</div><div id="logCount" class="section-meta">0 ENTRIES</div></div>
+      <div class="table-wrap">
+        <table><thead><tr><th>DATE JST</th><th>QUALITY</th><th>RANK</th><th>TARGET / 128</th><th>CH.A</th><th>CH.B</th><th>PERCENTILE</th><th>NUM7</th><th>LOCK</th></tr></thead><tbody id="logBody"><tr><td colspan="9">No collection has been committed yet.</td></tr></tbody></table>
       </div>
-      <div class="numbers-label">DECODED NUM7</div>
-      <div id="latestNumbers" class="numbers"><span class="no-signal">AWAITING FIRST COLLECTION</span></div>
-      <div class="meter">
-        <div class="meter-row"><span>176248 CONTROL PERCENTILE</span><span id="percentileText">—</span></div>
-        <div class="meter-track"><div id="percentileFill" class="meter-fill"></div></div>
-      </div>
-    </aside>
-  </section>
+      <div id="logMobile" class="log-mobile"></div>
+    </section>
 
-  <section class="grid4">
-    <div class="metric"><div class="label">Target rank</div><div id="metricRank" class="value">—</div><div class="subvalue">among 128 fixed keys</div></div>
-    <div class="metric"><div class="label">Channel A score</div><div id="metricA" class="value">—</div><div class="subvalue">public entropy / ledger</div></div>
-    <div class="metric"><div class="label">Channel B score</div><div id="metricB" class="value">—</div><div class="subvalue">NOAA DSCOVR solar wind</div></div>
-    <div class="metric"><div class="label">Observed signals</div><div id="metricSignals" class="value">0</div><div id="metricRate" class="subvalue">null expectation 6.25%</div></div>
-  </section>
-
-  <section class="content-grid">
-    <article class="panel section">
-      <div class="section-title"><span>Target rank history</span><span>lower is stronger · threshold ≤ 8</span></div>
-      <canvas id="rankChart" aria-label="176248 target rank history"></canvas>
-    </article>
-    <aside class="panel section">
-      <div class="section-title"><span>Source integrity</span><span id="sourceSummary">—</span></div>
-      <div id="sourceList" class="source-list"><div class="source"><i></i><span class="source-name">No record yet</span><span class="source-detail">—</span></div></div>
-    </aside>
-  </section>
-
-  <section class="protocol">
-    <div class="protocol-item"><b>01 / PRE-COMMIT</b><p>176248と対照キー127個は固定。観測後に鍵、閾値、抽出規則を変更しない。変更時はプロトコル番号を更新し、別実験として再開する。</p></div>
-    <div class="protocol-item"><b>02 / DETECT</b><p>同じ公開データを全128鍵で走査し、176248の順位を測定。両チャンネルが正常で、総合順位8位以内の日だけ信号とする。</p></div>
-    <div class="protocol-item"><b>03 / DECODE</b><p>信号日に限り、鍵で指定された観測位置を1〜37の候補へ投票させ、重複しない7数を固定手順で選ぶ。金曜日の信号だけFRIDAY LOCKになる。</p></div>
-  </section>
-
-  <div class="note">これは未来通信の存在を前提に結果を演出するページではなく、176248だけが対照群より継続的に強くなるかを公開記録する実験です。偶然仮説の下では信号率は約6.25%。当選結果を見た後の再計算や選別は行いません。</div>
-
-  <section class="panel section" style="margin-bottom:16px">
-    <div class="section-title"><span>Immutable signal log</span><span id="logCount">0 entries</span></div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>DATE JST</th><th>QUALITY</th><th>RANK</th><th>176248 / 128</th><th>CH.A</th><th>CH.B</th><th>PERCENTILE</th><th>NUM7</th><th>LOCK</th></tr></thead>
-        <tbody id="logBody"><tr><td colspan="9">No collection has been committed yet.</td></tr></tbody>
-      </table>
+    <div class="actions">
+      <button id="installButton" class="btn primary hidden">INSTALL</button>
+      <button id="notifyButton" class="btn">LOCAL ALERT</button>
+      <a class="btn" href="data/legacy-results.json">LEGACY LOG</a>
     </div>
-  </section>
+  </main>
 
-  <div class="actions">
-    <button id="installButton" class="btn primary hidden">INSTALL RECEIVER</button>
-    <button id="notifyButton" class="btn">ENABLE LOCAL ALERT</button>
-    <a class="btn" href="protocol.json">OPEN FIXED PROTOCOL</a>
-    <a class="btn" href="data/legacy-results.json">LEGACY ARCHIVE</a>
-  </div>
-
-  <footer class="footer"><span id="footerLeft">PROTOCOL 176248-REMIX-V1</span><span>DESIGNED WITH AI · FROZEN BEFORE OBSERVATION · EL PSY KONGROO</span></footer>
+  <footer class="footer"><span id="footerLeft">FROZEN PROTOCOL · AWAITING DATA</span><span>PUBLIC RECORD · PRIVATE ANCHOR · EL PSY KONGROO</span></footer>
 </div>
 <script>
 const DATA_URL='data/results.json';
-let records=[];
-let installPrompt=null;
-const $=id=>document.getElementById(id);
-
+let records=[];let installPrompt=null;const $=id=>document.getElementById(id);
 function esc(value){return String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
 function fmt(value,digits=3){return Number.isFinite(Number(value))?Number(value).toFixed(digits):'—';}
-function rankColor(rank){return {SS:'var(--red)',S:'var(--amber)',A:'#ffe890',B:'var(--violet)',C:'var(--cyan)'}[rank]||'var(--muted)';}
-function numberBalls(numbers,mini=false){
-  if(!Array.isArray(numbers)||!numbers.length)return '<span class="no-signal">NO SIGNAL / NO DECODE</span>';
-  return numbers.map(n=>`<span class="${mini?'mini-ball':'ball'}">${String(n).padStart(2,'0')}</span>`).join('');
-}
+function rankColor(rank){return {SS:'var(--red)',S:'var(--amber)',A:'#ffe891',B:'var(--violet)',C:'var(--cyan)'}[rank]||'var(--muted)';}
+function numberBalls(numbers,mini=false){if(!Array.isArray(numbers)||!numbers.length)return mini?'—':'<span class="no-signal">NO SIGNAL / NO DECODE</span>';return numbers.map(n=>`<span class="${mini?'mini-ball':'ball'}">${String(n).padStart(2,'0')}</span>`).join('');}
 function setStatus(kind,text){const el=$('systemStatus');el.className='status '+kind;el.querySelector('span:last-child').textContent=text;}
-
 async function load(){
   try{
-    const response=await fetch(`${DATA_URL}?t=${Date.now()}`,{cache:'no-store'});
-    if(!response.ok)throw new Error(`HTTP ${response.status}`);
-    const value=await response.json();
-    records=Array.isArray(value)?value:[];
-    render();
-    setStatus(records.at(-1)?.quality==='DEGRADED'?'warn':'live',records.length?'RECEIVER ACTIVE':'ARMED / ZERO DAY');
-  }catch(error){
-    console.error(error);setStatus('warn','DATA UNAVAILABLE');$('latestNumbers').innerHTML='<span class="no-signal">DATA LOAD ERROR</span>';
-  }
+    const response=await fetch(`${DATA_URL}?t=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);
+    const value=await response.json();records=Array.isArray(value)?value:[];render();
+    const last=records.at(-1);setStatus(last?.quality==='DEGRADED'?'warn':'live',records.length?(last?.quality==='DEGRADED'?'RETRY PENDING':'RECEIVER ACTIVE'):'ARMED / ZERO DAY');
+  }catch(error){console.error(error);setStatus('warn','DATA UNAVAILABLE');$('latestNumbers').innerHTML='<span class="no-signal">DATA LOAD ERROR</span>';}
 }
-
 function render(){
-  const last=records.at(-1);
-  const signals=records.filter(r=>r.signal).length;
-  $('metricSignals').textContent=signals;
-  $('metricRate').textContent=records.length?`${(signals/records.length*100).toFixed(2)}% observed · 6.25% null`:'null expectation 6.25%';
-  $('logCount').textContent=`${records.length} entries`;
+  const last=records.at(-1),signals=records.filter(r=>r.signal).length;
+  $('metricSignals').textContent=signals;$('metricRate').textContent=records.length?`${(signals/records.length*100).toFixed(2)}% observed · 6.25% null`:'null expectation 6.25%';$('logCount').textContent=`${records.length} ENTRIES`;
   if(!last){drawChart();renderLog();return;}
-  const t=last.detection?.target||{};
-  $('latestDate').textContent=`${last.date} JST · ${last.quality||'—'}`;
-  $('latestRank').textContent=last.rank||'—';$('latestRank').dataset.rank=last.rank||'-';
-  $('latestNumbers').innerHTML=numberBalls(last.numbers);
-  $('fridayLock').textContent=last.friday_lock?'FRIDAY LOCK':'NO LOCK';$('fridayLock').className='lock '+(last.friday_lock?'on':'');
-  $('percentileText').textContent=`${fmt(t.percentile,2)}%`;$('percentileFill').style.width=`${Math.max(0,Math.min(100,Number(t.percentile)||0))}%`;
-  $('metricRank').textContent=t.rank_combined?`${t.rank_combined} / 128`:'—';$('metricRank').style.color=rankColor(last.rank);
-  $('metricA').textContent=fmt(t.score_a);$('metricB').textContent=fmt(t.score_b);
-  renderSources(last);drawChart();renderLog();
-  $('footerLeft').textContent=`${String(last.protocol_version||'176248-remix-v1').toUpperCase()} · LAST COMMIT ${last.date}`;
+  const t=last.detection?.target||{};$('latestDate').textContent=`${last.date} JST · ${last.quality||'—'}`;$('latestRank').textContent=last.rank||'—';$('latestRank').dataset.rank=last.rank||'-';$('latestNumbers').innerHTML=numberBalls(last.numbers);
+  $('fridayLock').textContent=last.friday_lock?'FRIDAY LOCK':'NO LOCK';$('fridayLock').className='lock '+(last.friday_lock?'on':'');$('percentileText').textContent=`${fmt(t.percentile,2)}%`;$('percentileFill').style.width=`${Math.max(0,Math.min(100,Number(t.percentile)||0))}%`;
+  $('metricRank').textContent=t.rank_combined?`${t.rank_combined} / 128`:'—';$('metricRank').style.color=rankColor(last.rank);$('metricA').textContent=fmt(t.score_a);$('metricB').textContent=fmt(t.score_b);
+  renderSources(last);drawChart();renderLog();$('footerLeft').textContent=`FROZEN PROTOCOL · LAST RECORD ${last.date}`;
 }
-
 function renderSources(last){
-  const groups=[...(last.sources?.channel_a||[]),...(last.sources?.channel_b||[])];
-  const ok=groups.filter(s=>s.ok).length;$('sourceSummary').textContent=`${ok}/${groups.length} ONLINE`;
-  $('sourceList').innerHTML=groups.map(s=>{
-    const detail=s.ok?(s.detail?.samples?`${s.detail.samples} samples`:s.detail?.rows?`${s.detail.rows} rows`:s.detail?.round?`round ${s.detail.round}`:`${s.bytes||0} bytes`):(s.error||'offline');
-    return `<div class="source ${s.ok?'ok':''}"><i></i><span class="source-name">${esc(s.name)}</span><span class="source-detail" title="${esc(detail)}">${esc(detail)}</span></div>`;
-  }).join('')||'<div class="source"><i></i><span class="source-name">No source data</span><span class="source-detail">—</span></div>';
+  const groups=[...(last.sources?.channel_a||[]),...(last.sources?.channel_b||[])],ok=groups.filter(s=>s.ok).length;$('sourceSummary').textContent=`${ok}/${groups.length} ONLINE`;
+  $('sourceList').innerHTML=groups.map(s=>{const detail=s.ok?(s.detail?.samples?`${s.detail.samples} samples`:s.detail?.rows?`${s.detail.rows} rows`:s.detail?.round?`round ${s.detail.round}`:`${s.bytes||0} bytes`):(s.error||'offline');return `<div class="source ${s.ok?'ok':''}"><i></i><span class="source-name">${esc(s.name)}</span><span class="source-detail" title="${esc(detail)}">${esc(detail)}</span></div>`;}).join('')||'<div class="source"><i></i><span class="source-name">No source data</span><span class="source-detail">—</span></div>';
 }
-
 function renderLog(){
-  const body=$('logBody');
-  if(!records.length){body.innerHTML='<tr><td colspan="9">No collection has been committed yet.</td></tr>';return;}
-  body.innerHTML=[...records].reverse().slice(0,120).map(r=>{
-    const t=r.detection?.target||{};
-    return `<tr class="${r.signal?'signal-row':''}"><td>${esc(r.date)}</td><td>${esc(r.quality)}</td><td class="r" style="color:${rankColor(r.rank)}">${esc(r.rank||'—')}</td><td>${esc(t.rank_combined||'—')}</td><td>${fmt(t.score_a)}</td><td>${fmt(t.score_b)}</td><td>${fmt(t.percentile,2)}%</td><td><div class="mini-balls">${numberBalls(r.numbers,true)}</div></td><td>${r.friday_lock?'LOCK':'—'}</td></tr>`;
-  }).join('');
+  const body=$('logBody'),mobile=$('logMobile');if(!records.length){body.innerHTML='<tr><td colspan="9">No collection has been committed yet.</td></tr>';mobile.innerHTML='<div class="log-entry"><span class="no-signal">NO RECORD YET</span></div>';return;}
+  const rows=[...records].reverse().slice(0,120);
+  body.innerHTML=rows.map(r=>{const t=r.detection?.target||{};return `<tr class="${r.signal?'signal-row':''}"><td>${esc(r.date)}</td><td>${esc(r.quality)}</td><td class="r" style="color:${rankColor(r.rank)}">${esc(r.rank||'—')}</td><td>${esc(t.rank_combined||'—')}</td><td>${fmt(t.score_a)}</td><td>${fmt(t.score_b)}</td><td>${fmt(t.percentile,2)}%</td><td><div class="mini-balls">${numberBalls(r.numbers,true)}</div></td><td>${r.friday_lock?'LOCK':'—'}</td></tr>`;}).join('');
+  mobile.innerHTML=rows.slice(0,40).map(r=>{const t=r.detection?.target||{};return `<article class="log-entry ${r.signal?'signal-row':''}"><div class="log-entry-top"><span class="log-entry-date">${esc(r.date)} · ${esc(r.quality)}</span><span class="log-entry-rank" style="color:${rankColor(r.rank)}">${esc(r.rank||'—')}</span></div><div class="log-entry-grid"><div class="log-kv"><span>RANK</span><b>${esc(t.rank_combined||'—')} / 128</b></div><div class="log-kv"><span>CH.A</span><b>${fmt(t.score_a)}</b></div><div class="log-kv"><span>CH.B</span><b>${fmt(t.score_b)}</b></div></div><div class="mini-balls">${numberBalls(r.numbers,true)}</div></article>`;}).join('');
 }
-
 function drawChart(){
-  const canvas=$('rankChart'),ctx=canvas.getContext('2d'),dpr=window.devicePixelRatio||1;
-  const w=canvas.clientWidth||600,h=canvas.clientHeight||190;canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
-  const pad={l:34,r:12,t:12,b:24};const plotW=w-pad.l-pad.r,plotH=h-pad.t-pad.b;
-  ctx.font='9px ui-monospace,monospace';ctx.textAlign='right';ctx.textBaseline='middle';
-  [1,8,32,64,96,128].forEach(rank=>{const y=pad.t+(rank-1)/127*plotH;ctx.strokeStyle=rank===8?'rgba(66,200,255,.45)':'rgba(27,38,54,.8)';ctx.setLineDash(rank===8?[4,4]:[]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=rank===8?'#42c8ff':'#607187';ctx.fillText(String(rank),pad.l-7,y);});
-  const pts=records.slice(-60);if(!pts.length){ctx.fillStyle='#607187';ctx.textAlign='center';ctx.fillText('ZERO DAY — FIRST COMMIT WILL APPEAR HERE',w/2,h/2);return;}
-  const x=i=>pts.length===1?pad.l+plotW/2:pad.l+i/(pts.length-1)*plotW;const y=r=>pad.t+(Math.max(1,Math.min(128,r))-1)/127*plotH;
-  ctx.beginPath();pts.forEach((r,i)=>{const yy=y(r.detection?.target?.rank_combined||128);i?ctx.lineTo(x(i),yy):ctx.moveTo(x(i),yy)});ctx.strokeStyle='#9bd7ff';ctx.lineWidth=1.5;ctx.stroke();
-  pts.forEach((r,i)=>{const yy=y(r.detection?.target?.rank_combined||128);ctx.beginPath();ctx.arc(x(i),yy,r.signal?3.8:2.2,0,Math.PI*2);ctx.fillStyle=r.signal?rankColor(r.rank):'#607187';ctx.fill();});
-  ctx.fillStyle='#607187';ctx.textAlign='left';ctx.textBaseline='alphabetic';ctx.fillText(pts[0].date.slice(5),pad.l,h-6);ctx.textAlign='right';ctx.fillText(pts.at(-1).date.slice(5),w-pad.r,h-6);
+  const canvas=$('rankChart'),ctx=canvas.getContext('2d'),dpr=window.devicePixelRatio||1,w=canvas.clientWidth||600,h=canvas.clientHeight||220;canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+  const pad={l:35,r:12,t:13,b:25},plotW=w-pad.l-pad.r,plotH=h-pad.t-pad.b;ctx.font='9px ui-monospace,monospace';ctx.textAlign='right';ctx.textBaseline='middle';
+  [1,8,32,64,96,128].forEach(rank=>{const y=pad.t+(rank-1)/127*plotH;ctx.strokeStyle=rank===8?'rgba(88,210,255,.46)':'rgba(157,198,228,.11)';ctx.setLineDash(rank===8?[4,4]:[]);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=rank===8?'#58d2ff':'#708493';ctx.fillText(String(rank),pad.l-7,y);});
+  const pts=records.slice(-60);if(!pts.length){ctx.fillStyle='#708493';ctx.textAlign='center';ctx.fillText('ZERO DAY — FIRST RECORD WILL APPEAR HERE',w/2,h/2);return;}
+  const x=i=>pts.length===1?pad.l+plotW/2:pad.l+i/(pts.length-1)*plotW,y=r=>pad.t+(Math.max(1,Math.min(128,r))-1)/127*plotH;ctx.beginPath();pts.forEach((r,i)=>{const yy=y(r.detection?.target?.rank_combined||128);i?ctx.lineTo(x(i),yy):ctx.moveTo(x(i),yy)});ctx.strokeStyle='#b8ebff';ctx.lineWidth=1.5;ctx.stroke();pts.forEach((r,i)=>{ctx.beginPath();ctx.arc(x(i),y(r.detection?.target?.rank_combined||128),r.signal?4:2.4,0,Math.PI*2);ctx.fillStyle=r.signal?rankColor(r.rank):'#708493';ctx.fill();});ctx.fillStyle='#708493';ctx.textAlign='left';ctx.textBaseline='alphabetic';ctx.fillText(pts[0].date.slice(5),pad.l,h-6);ctx.textAlign='right';ctx.fillText(pts.at(-1).date.slice(5),w-pad.r,h-6);
 }
-
-window.addEventListener('resize',()=>drawChart());
-window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;$('installButton').classList.remove('hidden');});
+window.addEventListener('resize',drawChart);window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;$('installButton').classList.remove('hidden');});
 $('installButton').addEventListener('click',async()=>{if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installButton').classList.add('hidden');});
-$('notifyButton').addEventListener('click',async()=>{
-  if(!('Notification'in window)){alert('このブラウザは通知に対応していません。');return;}
-  const permission=await Notification.requestPermission();
-  if(permission==='granted'){$('notifyButton').textContent='LOCAL ALERT ACTIVE';localStorage.setItem('receiver176248Notify','1');checkLocalAlert();}
-});
-function checkLocalAlert(){
-  if(localStorage.getItem('receiver176248Notify')!=='1'||Notification.permission!=='granted'||!records.length)return;
-  const last=records.at(-1),seen=localStorage.getItem('receiver176248Seen');
-  if(last.signal&&last.date!==seen){new Notification(`[${last.rank}] 176248 SIGNAL`,{body:`${last.date} JST\nNUM7 ${(last.numbers||[]).join(' ')}`,icon:'icon-192.png'});localStorage.setItem('receiver176248Seen',last.date);}
-}
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(console.error);
-load().then(checkLocalAlert);
-setInterval(()=>load().then(checkLocalAlert),60*60*1000);
+$('notifyButton').addEventListener('click',async()=>{if(!('Notification'in window)){alert('このブラウザは通知に対応していません。');return;}const permission=await Notification.requestPermission();if(permission==='granted'){$('notifyButton').textContent='ALERT ACTIVE';localStorage.setItem('temporalReceiverNotify','1');checkLocalAlert();}});
+function checkLocalAlert(){if(localStorage.getItem('temporalReceiverNotify')!=='1'||Notification.permission!=='granted'||!records.length)return;const last=records.at(-1),seen=localStorage.getItem('temporalReceiverSeen');if(last.signal&&last.date!==seen){new Notification(`[${last.rank}] TEMPORAL SIGNAL`,{body:`${last.date} JST\nNUM7 ${(last.numbers||[]).join(' ')}`,icon:'icon-192.png'});localStorage.setItem('temporalReceiverSeen',last.date);}}
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(console.error);load().then(checkLocalAlert);setInterval(()=>load().then(checkLocalAlert),60*60*1000);
 </script>
 </body>
 </html>

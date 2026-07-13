@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-TEMPORAL SIGNAL RECEIVER 176248 / REMIX
+TEMPORAL SIGNAL RECEIVER / REMIX
 
-A falsifiable, key-specific detector for the fixed analysis key 176248.
+A falsifiable detector for one private, fixed analysis anchor.
 The target key is compared with 127 pre-committed placebo keys every day.
 Only rare target ranks produce a signal and a seven-number decode.
 
@@ -16,6 +16,7 @@ import hmac
 import json
 import math
 import os
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -33,7 +34,7 @@ DECODE_SAMPLES_PER_SYMBOL = 16
 RESULTS = Path("data/results.json")
 PROTOCOL_FILE = Path("protocol.json")
 JST = timezone(timedelta(hours=9))
-USER_AGENT = "TemporalSignalReceiver/176248-remix-v1 (+GitHub Actions)"
+USER_AGENT = "TemporalSignalReceiver/remix-v1 (+GitHub Actions)"
 
 
 # ---------------------------------------------------------------------------
@@ -164,57 +165,86 @@ def load_bitcoin() -> tuple[bytes, dict[str, Any]]:
     return packet, {"height": height, "hash": block_hash, "provider": provider}
 
 
-def _last_valid_rows(rows: Any, count: int = 90) -> list[list[Any]]:
-    if not isinstance(rows, list) or len(rows) < 2:
+NOAA_MAG_URLS = (
+    "https://services.swpc.noaa.gov/json/rtsw/rtsw_mag_1m.json",
+    "https://noaa-swpc-pds.s3.amazonaws.com/json/rtsw/rtsw_mag_1m.json",
+)
+NOAA_WIND_URLS = (
+    "https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_1m.json",
+    "https://noaa-swpc-pds.s3.amazonaws.com/json/rtsw/rtsw_wind_1m.json",
+)
+
+
+def request_json_fallback(urls: Iterable[str]) -> tuple[Any, str]:
+    errors: list[str] = []
+    for url in urls:
+        try:
+            return parse_json(request_bytes(url, timeout=18)), url
+        except Exception as exc:
+            errors.append(str(exc))
+    raise RuntimeError("; ".join(errors))
+
+
+def _last_valid_objects(rows: Any, count: int = 90) -> list[dict[str, Any]]:
+    if not isinstance(rows, list):
         return []
-    clean: list[list[Any]] = []
-    for row in rows[1:]:
-        if isinstance(row, list) and any(v not in (None, "") for v in row[1:]):
+    clean: list[dict[str, Any]] = []
+    for row in rows:
+        if not isinstance(row, dict) or not row.get("time_tag"):
+            continue
+        if any(value not in (None, "") for key, value in row.items() if key != "time_tag"):
             clean.append(row)
-    return clean[-count:]
+    active = [
+        row for row in clean
+        if row.get("active") in (True, 1, "true", "True", "1")
+    ]
+    usable = active if len(active) >= 10 else clean
+    usable.sort(key=lambda row: str(row.get("time_tag", "")))
+    return usable[-count:]
+
+
+def _float_values(rows: Iterable[dict[str, Any]], key: str) -> list[float]:
+    values: list[float] = []
+    for row in rows:
+        try:
+            value = row.get(key)
+            if value not in (None, ""):
+                values.append(float(value))
+        except (ValueError, TypeError):
+            pass
+    return values
 
 
 def load_noaa_mag() -> tuple[bytes, dict[str, Any]]:
-    rows = parse_json(
-        request_bytes("https://services.swpc.noaa.gov/products/solar-wind/mag-1-day.json")
-    )
-    selected = _last_valid_rows(rows)
+    rows, endpoint = request_json_fallback(NOAA_MAG_URLS)
+    selected = _last_valid_objects(rows)
     if len(selected) < 10:
-        raise ValueError("insufficient NOAA magnetic-field rows")
-    bz_values: list[float] = []
-    for row in selected:
-        try:
-            bz_values.append(float(row[3]))
-        except (ValueError, TypeError, IndexError):
-            pass
+        raise ValueError("insufficient NOAA RTSW magnetic-field rows")
+    bz_values = _float_values(selected, "bz_gsm")
     detail = {
         "rows": len(selected),
         "bz_mean": round(sum(bz_values) / len(bz_values), 4) if bz_values else None,
-        "last_time": selected[-1][0] if selected else None,
+        "last_time": selected[-1].get("time_tag"),
+        "source": selected[-1].get("source"),
+        "endpoint": endpoint.split("/")[2],
     }
     return compact_json(selected), detail
 
 
 def load_noaa_plasma() -> tuple[bytes, dict[str, Any]]:
-    rows = parse_json(
-        request_bytes("https://services.swpc.noaa.gov/products/solar-wind/plasma-1-day.json")
-    )
-    selected = _last_valid_rows(rows)
+    rows, endpoint = request_json_fallback(NOAA_WIND_URLS)
+    selected = _last_valid_objects(rows)
     if len(selected) < 10:
-        raise ValueError("insufficient NOAA plasma rows")
-    density: list[float] = []
-    speed: list[float] = []
-    for row in selected:
-        try:
-            density.append(float(row[1]))
-            speed.append(float(row[2]))
-        except (ValueError, TypeError, IndexError):
-            pass
+        raise ValueError("insufficient NOAA RTSW solar-wind rows")
+    density = _float_values(selected, "proton_density")
+    speed = _float_values(selected, "proton_speed")
     detail = {
         "rows": len(selected),
         "density_mean": round(sum(density) / len(density), 4) if density else None,
         "speed_mean": round(sum(speed) / len(speed), 2) if speed else None,
-        "last_time": selected[-1][0] if selected else None,
+        "last_time": selected[-1].get("time_tag"),
+        "source": selected[-1].get("source"),
+        "endpoint": endpoint.split("/")[2],
     }
     return compact_json(selected), detail
 
@@ -229,8 +259,8 @@ def collect_sources() -> tuple[list[SourceResult], list[SourceResult]]:
         ("Bitcoin latest block", load_bitcoin),
     ]
     channel_b_specs = [
-        ("NOAA DSCOVR magnetic field", load_noaa_mag),
-        ("NOAA DSCOVR plasma", load_noaa_plasma),
+        ("NOAA RTSW magnetic field", load_noaa_mag),
+        ("NOAA RTSW solar wind", load_noaa_plasma),
     ]
     specs = channel_a_specs + channel_b_specs
     with ThreadPoolExecutor(max_workers=len(specs)) as executor:
@@ -472,8 +502,8 @@ def send_notification(entry: dict[str, Any]) -> None:
     numbers = " ".join(f"{n:02d}" for n in entry.get("numbers", [])) or "NO DECODE"
     target = entry["detection"]["target"]
     body = (
-        f"176248 / {entry['date']} JST\n"
-        f"RANK {rank} · control rank {target['rank_combined']}/128\n"
+        f"{entry['date']} JST\n"
+        f"RANK {rank} · target rank {target['rank_combined']}/128\n"
         f"A={target['score_a']:.3f} B={target['score_b']:.3f}\n"
         f"NUM7 {numbers}"
     )
@@ -481,7 +511,7 @@ def send_notification(entry: dict[str, Any]) -> None:
         f"https://ntfy.sh/{topic}",
         data=body.encode("utf-8"),
         headers={
-            "Title": f"[{rank}] 176248 SIGNAL",
+            "Title": f"[{rank}] TEMPORAL SIGNAL",
             "Tags": "satellite,signal_strength",
             "Priority": "high" if rank in {"SS", "S"} else "default",
         },
@@ -522,17 +552,33 @@ def write_protocol_file() -> None:
 # Main
 # ---------------------------------------------------------------------------
 
-def run() -> None:
+def observation_strength(entry: dict[str, Any]) -> tuple[int, int, int]:
+    sources = [
+        *(entry.get("sources", {}).get("channel_a", []) or []),
+        *(entry.get("sources", {}).get("channel_b", []) or []),
+    ]
+    online = sum(bool(source.get("ok")) for source in sources if isinstance(source, dict))
+    packet_bytes = int(entry.get("packets", {}).get("a_bytes", 0) or 0) + int(
+        entry.get("packets", {}).get("b_bytes", 0) or 0
+    )
+    return int(entry.get("healthy_channels", 0) or 0), online, packet_bytes
+
+
+def run() -> int:
     now_jst = datetime.now(JST)
     day = now_jst.strftime("%Y-%m-%d")
     collected_at = now_jst.isoformat(timespec="seconds")
-    print(f"[176248] collecting {day} JST")
+    print(f"[receiver] collecting {day} JST")
 
     write_protocol_file()
     results = load_results()
-    if any(item.get("date") == day for item in results):
-        print("[176248] already collected for this JST date")
-        return
+    existing_index = next(
+        (index for index, item in enumerate(results) if item.get("date") == day), None
+    )
+    existing = results[existing_index] if existing_index is not None else None
+    if existing and existing.get("quality") == "OK":
+        print("[receiver] an OK record already exists for this JST date")
+        return 0
 
     channel_a_sources, channel_b_sources = collect_sources()
     packet_a = build_channel_packet("A", day, channel_a_sources)
@@ -574,14 +620,31 @@ def run() -> None:
         },
     }
 
-    results.append(entry)
-    save_results(results)
+    saved_entry = entry
+    changed = False
+    if existing_index is None:
+        results.append(entry)
+        changed = True
+    elif observation_strength(entry) > observation_strength(existing):
+        entry["supersedes_degraded_collected_at_jst"] = existing.get("collected_at_jst")
+        results[existing_index] = entry
+        changed = True
+        print("[receiver] replaced the same-day degraded record with a stronger observation")
+    else:
+        saved_entry = existing
+        print("[receiver] kept the stronger existing degraded record")
+
+    if changed:
+        save_results(results)
+        send_notification(entry)
+
     print(
-        f"[RESULT] quality={entry['quality']} rank={rank} "
-        f"target={detection['target']['rank_combined']}/128 numbers={numbers}"
+        f"[RESULT] quality={saved_entry['quality']} rank={saved_entry['rank']} "
+        f"target={saved_entry['detection']['target']['rank_combined']}/128 "
+        f"numbers={saved_entry.get('numbers', [])}"
     )
-    send_notification(entry)
+    return 0 if saved_entry.get("quality") == "OK" else 2
 
 
 if __name__ == "__main__":
-    run()
+    sys.exit(run())

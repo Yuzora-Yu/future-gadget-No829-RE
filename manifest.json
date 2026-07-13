@@ -1,12 +1,12 @@
 {
-  "name": "Temporal Signal Receiver 176248",
-  "short_name": "176248",
-  "description": "A pre-committed placebo-controlled detector for the fixed key 176248.",
+  "name": "Temporal Signal Receiver",
+  "short_name": "Signal Receiver",
+  "description": "A frozen, placebo-controlled temporal signal experiment.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#05070b",
-  "theme_color": "#05070b",
+  "background_color": "#05090f",
+  "theme_color": "#071018",
   "icons": [
     {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
     {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}

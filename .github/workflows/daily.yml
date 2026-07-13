@@ -1,25 +1,36 @@
-name: Daily 176248 Signal Collection
+name: Daily Signal Collection
 
 on:
   schedule:
-    # 00:30 UTC = 09:30 JST. GitHub schedules can start a little late.
-    - cron: '30 0 * * *'
+    # Two automatic windows in JST. The collector keeps one best record per day.
+    - cron: '37 0 * * *'  # 09:37 JST
+    - cron: '7 2 * * *'   # 11:07 JST fallback
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'manifest.json'
+      - 'sw.js'
+      - 'collector.py'
+      - '.github/workflows/daily.yml'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: daily-176248-collector
+  group: daily-signal-collector
   cancel-in-progress: false
 
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 18
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,16 +40,34 @@ jobs:
       - name: Verify fixed protocol
         run: python test_protocol.py
 
-      - name: Collect public signal packet
+      - name: Collect public signal packet with automatic retry
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-        run: python collector.py
+        shell: bash
+        run: |
+          set +e
+          final_code=2
+          for attempt in 1 2 3; do
+            echo "collection attempt ${attempt}/3"
+            python collector.py
+            final_code=$?
+            if [ "$final_code" -eq 0 ]; then
+              break
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              sleep $((attempt * 45))
+            fi
+          done
+          # A degraded observation is still committed and retried by the fallback schedule.
+          exit 0
 
-      - name: Commit immutable daily result
+      - name: Commit best daily result
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/results.json protocol.json
           git diff --staged --quiet && exit 0
           git commit -m "signal: lock $(TZ=Asia/Tokyo date +%Y-%m-%d) JST"
+          git pull --rebase
           git push

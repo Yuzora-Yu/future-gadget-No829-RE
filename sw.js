@@ -1,6 +1,6 @@
-const CACHE = 'receiver-176248-remix-v1';
+const CACHE = 'temporal-receiver-ui-v2';
 const CORE = [
-  './', './index.html', './manifest.json', './protocol.json',
+  './', './index.html', './manifest.json',
   './icon-192.png', './icon-512.png'
 ];
 
@@ -18,7 +18,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  if (url.pathname.endsWith('/data/results.json') || url.pathname.endsWith('/protocol.json')) {
+  if (url.pathname.endsWith('/data/results.json')) {
     event.respondWith(
       fetch(event.request, {cache: 'no-store'})
         .then(response => {
@@ -30,5 +30,7 @@ self.addEventListener('fetch', event => {
     );
     return;
   }
-  event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request)));
+  event.respondWith(
+    caches.match(event.request).then(cached => cached || fetch(event.request))
+  );
 });
