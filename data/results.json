@@ -1,1 +1,122 @@
-[]
+[
+  {
+    "date": "2026-07-14",
+    "collected_at_jst": "2026-07-14T05:16:25+09:00",
+    "protocol_version": "176248-remix-v1",
+    "target_key": "176248",
+    "quality": "DEGRADED",
+    "healthy_channels": 1,
+    "rank": "-",
+    "signal": false,
+    "friday_lock": false,
+    "numbers": [],
+    "decode_evidence": [],
+    "detection": {
+      "target": {
+        "score_a": -1.876388,
+        "score_b": 0.0,
+        "score_combined": -1.876388,
+        "matches_a": 51,
+        "matches_b": 0,
+        "rank_a": 125,
+        "rank_b": 5,
+        "rank_combined": 125,
+        "percentile": 2.362
+      },
+      "control_count": 127,
+      "top_controls": [
+        {
+          "key_hash": "3507a03c8c",
+          "score": 3.175426,
+          "rank": 1
+        },
+        {
+          "key_hash": "06799c67b6",
+          "score": 2.598076,
+          "rank": 2
+        },
+        {
+          "key_hash": "f8348366d1",
+          "score": 2.165064,
+          "rank": 3
+        },
+        {
+          "key_hash": "5d16695ae4",
+          "score": 1.876388,
+          "rank": 4
+        },
+        {
+          "key_hash": "efc0b33218",
+          "score": 1.876388,
+          "rank": 5
+        }
+      ]
+    },
+    "packets": {
+      "a_sha256": "ef0cdbe4e37fde96f5dbde25b1bf84e7eaaa79c95c684c539bf6a677d9180621",
+      "b_sha256": "df1e5b8fb3a014639152aecb0e4482b32f12f01461177737a01133d113f5f7b0",
+      "a_bytes": 943,
+      "b_bytes": 28
+    },
+    "sources": {
+      "channel_a": [
+        {
+          "name": "random.org",
+          "ok": true,
+          "bytes": 384,
+          "detail": {
+            "samples": 384
+          },
+          "error": ""
+        },
+        {
+          "name": "ANU QRNG",
+          "ok": true,
+          "bytes": 384,
+          "detail": {
+            "samples": 384
+          },
+          "error": ""
+        },
+        {
+          "name": "drand",
+          "ok": true,
+          "bytes": 32,
+          "detail": {
+            "round": 6284758,
+            "randomness": "dcf277c886768fe50888553ac0b267960b2d6d2d71053bb743dab73e125a1fc7",
+            "relay": "api.drand.sh"
+          },
+          "error": ""
+        },
+        {
+          "name": "Bitcoin latest block",
+          "ok": true,
+          "bytes": 32,
+          "detail": {
+            "height": 957903,
+            "hash": "00000000000000000001de9d869f13ae53ffbcca3ba3558788b6dbea6162e478",
+            "provider": "blockchain.info"
+          },
+          "error": ""
+        }
+      ],
+      "channel_b": [
+        {
+          "name": "NOAA DSCOVR magnetic field",
+          "ok": false,
+          "bytes": 0,
+          "detail": {},
+          "error": "fetch failed: https://services.swpc.noaa.gov/products/solar-wind/mag-1-day.json: HTTP Error 404: Not Found"
+        },
+        {
+          "name": "NOAA DSCOVR plasma",
+          "ok": false,
+          "bytes": 0,
+          "detail": {},
+          "error": "fetch failed: https://services.swpc.noaa.gov/products/solar-wind/plasma-1-day.json: HTTP Error 404: Not Found"
+        }
+      ]
+    }
+  }
+]
