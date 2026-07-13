@@ -1,11 +1,11 @@
 [
   {
     "date": "2026-07-14",
-    "collected_at_jst": "2026-07-14T05:16:25+09:00",
+    "collected_at_jst": "2026-07-14T05:32:45+09:00",
     "protocol_version": "176248-remix-v1",
     "target_key": "176248",
-    "quality": "DEGRADED",
-    "healthy_channels": 1,
+    "quality": "OK",
+    "healthy_channels": 2,
     "rank": "-",
     "signal": false,
     "friday_lock": false,
@@ -13,50 +13,50 @@
     "decode_evidence": [],
     "detection": {
       "target": {
-        "score_a": -1.876388,
-        "score_b": 0.0,
-        "score_combined": -1.876388,
-        "matches_a": 51,
-        "matches_b": 0,
-        "rank_a": 125,
-        "rank_b": 5,
-        "rank_combined": 125,
-        "percentile": 2.362
+        "score_a": 1.299038,
+        "score_b": -0.866025,
+        "score_combined": 0.306186,
+        "matches_a": 73,
+        "matches_b": 58,
+        "rank_a": 17,
+        "rank_b": 92,
+        "rank_combined": 54,
+        "percentile": 58.268
       },
       "control_count": 127,
       "top_controls": [
         {
-          "key_hash": "3507a03c8c",
-          "score": 3.175426,
+          "key_hash": "e45a0d6eeb",
+          "score": 2.551552,
           "rank": 1
         },
         {
-          "key_hash": "06799c67b6",
-          "score": 2.598076,
+          "key_hash": "c5830de857",
+          "score": 2.245366,
           "rank": 2
         },
         {
-          "key_hash": "f8348366d1",
-          "score": 2.165064,
+          "key_hash": "a8e7f7a4b0",
+          "score": 2.041241,
           "rank": 3
         },
         {
-          "key_hash": "5d16695ae4",
-          "score": 1.876388,
+          "key_hash": "a47b664351",
+          "score": 1.93918,
           "rank": 4
         },
         {
-          "key_hash": "efc0b33218",
-          "score": 1.876388,
+          "key_hash": "daf71972e1",
+          "score": 1.93918,
           "rank": 5
         }
       ]
     },
     "packets": {
-      "a_sha256": "ef0cdbe4e37fde96f5dbde25b1bf84e7eaaa79c95c684c539bf6a677d9180621",
-      "b_sha256": "df1e5b8fb3a014639152aecb0e4482b32f12f01461177737a01133d113f5f7b0",
+      "a_sha256": "5ebd271ff8dc6646a0f82a059d8af0663d9ce03af2962fa07630338ce3c992df",
+      "b_sha256": "8d23f356d34842bfb35fe653d620169216a408fdc8d686d4aa5c39a232c649aa",
       "a_bytes": 943,
-      "b_bytes": 28
+      "b_bytes": 96035
     },
     "sources": {
       "channel_a": [
@@ -83,8 +83,8 @@
           "ok": true,
           "bytes": 32,
           "detail": {
-            "round": 6284758,
-            "randomness": "dcf277c886768fe50888553ac0b267960b2d6d2d71053bb743dab73e125a1fc7",
+            "round": 6284791,
+            "randomness": "89e918641252711d2950f201695d689309f9207b30c4fb29dfc7956cc1dc1261",
             "relay": "api.drand.sh"
           },
           "error": ""
@@ -94,8 +94,8 @@
           "ok": true,
           "bytes": 32,
           "detail": {
-            "height": 957903,
-            "hash": "00000000000000000001de9d869f13ae53ffbcca3ba3558788b6dbea6162e478",
+            "height": 957904,
+            "hash": "00000000000000000000d58c1dca023c51fcd7fb93fb7b0f53f750f7c3ab5b7b",
             "provider": "blockchain.info"
           },
           "error": ""
@@ -103,20 +103,34 @@
       ],
       "channel_b": [
         {
-          "name": "NOAA DSCOVR magnetic field",
-          "ok": false,
-          "bytes": 0,
-          "detail": {},
-          "error": "fetch failed: https://services.swpc.noaa.gov/products/solar-wind/mag-1-day.json: HTTP Error 404: Not Found"
+          "name": "NOAA RTSW magnetic field",
+          "ok": true,
+          "bytes": 34566,
+          "detail": {
+            "rows": 90,
+            "bz_mean": -4.5732,
+            "last_time": "2026-07-13T20:27:00",
+            "source": "SOLAR1",
+            "endpoint": "services.swpc.noaa.gov"
+          },
+          "error": ""
         },
         {
-          "name": "NOAA DSCOVR plasma",
-          "ok": false,
-          "bytes": 0,
-          "detail": {},
-          "error": "fetch failed: https://services.swpc.noaa.gov/products/solar-wind/plasma-1-day.json: HTTP Error 404: Not Found"
+          "name": "NOAA RTSW solar wind",
+          "ok": true,
+          "bytes": 61377,
+          "detail": {
+            "rows": 90,
+            "density_mean": 3.1212,
+            "speed_mean": 408.43,
+            "last_time": "2026-07-13T20:26:00",
+            "source": "SOLAR1",
+            "endpoint": "services.swpc.noaa.gov"
+          },
+          "error": ""
         }
       ]
-    }
+    },
+    "supersedes_degraded_collected_at_jst": "2026-07-14T05:16:25+09:00"
   }
 ]
