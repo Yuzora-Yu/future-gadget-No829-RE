@@ -1,49 +1,34 @@
-const CACHE = 'receiver-re-v1';
-const ASSETS = ['/', '/index.html', '/manifest.json'];
+const CACHE = 'receiver-176248-remix-v1';
+const CORE = [
+  './', './index.html', './manifest.json', './protocol.json',
+  './icon-192.png', './icon-512.png'
+];
 
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)));
   self.skipWaiting();
 });
 
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-    )
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
   );
   self.clients.claim();
 });
 
-self.addEventListener('fetch', e => {
-  if (e.request.url.includes('results.json')) {
-    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  if (url.pathname.endsWith('/data/results.json') || url.pathname.endsWith('/protocol.json')) {
+    event.respondWith(
+      fetch(event.request, {cache: 'no-store'})
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE).then(cache => cache.put(event.request, copy));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
     return;
   }
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
-});
-
-self.addEventListener('push', e => {
-  const data = e.data ? e.data.json() : {};
-  e.waitUntil(
-    self.registration.showNotification(data.title || 'Signal Detected', {
-      body: data.message || 'Anomaly detected.',
-      icon: '/icon-192.png',
-      badge: '/icon-192.png',
-      vibrate: [200, 100, 200, 100, 200],
-      tag: 'signal',
-      renotify: true,
-      data: { url: self.location.origin }
-    })
-  );
-});
-
-self.addEventListener('notificationclick', e => {
-  e.notification.close();
-  e.waitUntil(
-    clients.matchAll({ type: 'window' }).then(list => {
-      if (list.length) return list[0].focus();
-      return clients.openWindow(e.notification.data?.url || '/');
-    })
-  );
+  event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request)));
 });
