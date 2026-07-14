@@ -16,6 +16,8 @@ import hmac
 import json
 import math
 import os
+import smtplib
+import ssl
 import sys
 import time
 import urllib.error
@@ -23,6 +25,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+from email.message import EmailMessage
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -32,6 +35,7 @@ CONTROL_COUNT = 127
 DETECT_SAMPLES = 256
 DECODE_SAMPLES_PER_SYMBOL = 16
 RESULTS = Path("data/results.json")
+NOTIFICATION_STATE = Path("data/notification-state.json")
 PROTOCOL_FILE = Path("protocol.json")
 JST = timezone(timedelta(hours=9))
 USER_AGENT = "TemporalSignalReceiver/remix-v1 (+GitHub Actions)"
@@ -492,6 +496,25 @@ def save_results(results: list[dict[str, Any]]) -> None:
     temp.replace(RESULTS)
 
 
+def load_notification_state() -> dict[str, Any]:
+    if not NOTIFICATION_STATE.exists():
+        return {}
+    try:
+        value = json.loads(NOTIFICATION_STATE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return value if isinstance(value, dict) else {}
+
+
+def save_notification_state(state: dict[str, Any]) -> None:
+    NOTIFICATION_STATE.parent.mkdir(parents=True, exist_ok=True)
+    temp = NOTIFICATION_STATE.with_suffix(".json.tmp")
+    temp.write_text(
+        json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    temp.replace(NOTIFICATION_STATE)
+
+
 def send_notification(entry: dict[str, Any]) -> None:
     topic = os.getenv("NTFY_TOPIC", "").strip()
     if not topic:
@@ -522,6 +545,123 @@ def send_notification(entry: dict[str, Any]) -> None:
             print("[NOTIFY] sent")
     except Exception as exc:
         print(f"[WARN] notification failed: {exc}")
+
+
+def build_email_message(entry: dict[str, Any], sender: str, recipient: str) -> EmailMessage:
+    rank = entry["rank"]
+    target = entry["detection"]["target"]
+    numbers = " ".join(f"{number:02d}" for number in entry.get("numbers", []))
+    numbers = numbers or "NO DECODE"
+    friday_text = "あり" if entry.get("friday_lock") else "なし"
+
+    message = EmailMessage()
+    message["From"] = sender
+    message["To"] = recipient
+    message["Subject"] = f"[{rank}] 異常信号を検知しました ({entry['date']} JST)"
+
+    lines = [
+        "TEMPORAL SIGNAL RECEIVER が異常信号を検知しました。",
+        "",
+        f"日付: {entry['date']} JST",
+        f"ランク: {rank}",
+        f"総合順位: {target['rank_combined']} / 128",
+        f"Channel A: {target['score_a']:.3f}",
+        f"Channel B: {target['score_b']:.3f}",
+        f"復元された7数: {numbers}",
+        f"FRIDAY LOCK: {friday_text}",
+    ]
+    pages_url = os.getenv("PAGES_URL", "").strip()
+    if pages_url:
+        lines.extend(["", f"公開ページ: {pages_url}"])
+    lines.extend(["", "このメールはGitHub Actionsから自動送信されています。"])
+    message.set_content("\n".join(lines))
+    return message
+
+
+def smtp_settings() -> tuple[str, int, str, str, str, str] | None:
+    host = os.getenv("SMTP_HOST", "smtp.gmail.com").strip()
+    username = os.getenv("SMTP_USERNAME", "").strip()
+    password = os.getenv("SMTP_PASSWORD", "")
+    recipient = os.getenv("ALERT_EMAIL_TO", "").strip()
+    sender = os.getenv("ALERT_EMAIL_FROM", username).strip()
+    try:
+        port = int(os.getenv("SMTP_PORT", "465"))
+    except ValueError:
+        port = 465
+
+    if not all((host, username, password, sender, recipient)):
+        print("[EMAIL] skipped: SMTP secrets are not configured")
+        return None
+    return host, port, username, password, sender, recipient
+
+
+def deliver_email(message: EmailMessage, settings: tuple[str, int, str, str, str, str]) -> bool:
+    host, port, username, password, _sender, _recipient = settings
+
+    context = ssl.create_default_context()
+    try:
+        if port == 465:
+            with smtplib.SMTP_SSL(host, port, timeout=20, context=context) as smtp:
+                smtp.login(username, password)
+                smtp.send_message(message)
+        else:
+            with smtplib.SMTP(host, port, timeout=20) as smtp:
+                smtp.ehlo()
+                smtp.starttls(context=context)
+                smtp.ehlo()
+                smtp.login(username, password)
+                smtp.send_message(message)
+        print("[EMAIL] sent")
+        return True
+    except Exception as exc:
+        print(f"[WARN] email notification failed: {exc}")
+        return False
+
+
+def send_email_notification(entry: dict[str, Any]) -> bool:
+    """Send an email for every healthy signal rank (SS/S/A/B/C)."""
+    if entry.get("quality") != "OK" or not entry.get("signal"):
+        return False
+    settings = smtp_settings()
+    if settings is None:
+        return False
+    _host, _port, _username, _password, sender, recipient = settings
+    return deliver_email(build_email_message(entry, sender, recipient), settings)
+
+
+def send_test_email() -> bool:
+    settings = smtp_settings()
+    if settings is None:
+        return False
+    _host, _port, _username, _password, sender, recipient = settings
+    message = EmailMessage()
+    message["From"] = sender
+    message["To"] = recipient
+    message["Subject"] = "[TEST] 異常検知メール設定確認"
+    message.set_content(
+        "GitHub Actionsからテストメールを送信しました。\n"
+        "このメールを受信できれば、異常検知時の通知設定は有効です。"
+    )
+    return deliver_email(message, settings)
+
+
+def send_email_if_due(entry: dict[str, Any]) -> None:
+    """Retry failed mail on later workflow runs without sending duplicates."""
+    if entry.get("quality") != "OK" or not entry.get("signal"):
+        return
+    state = load_notification_state()
+    if state.get("email_last_sent_date") == entry.get("date"):
+        print("[EMAIL] already sent for this signal date")
+        return
+    if send_email_notification(entry):
+        state.update(
+            {
+                "email_last_sent_date": entry.get("date"),
+                "email_last_sent_rank": entry.get("rank"),
+                "email_last_sent_at_jst": datetime.now(JST).isoformat(timespec="seconds"),
+            }
+        )
+        save_notification_state(state)
 
 
 def write_protocol_file() -> None:
@@ -578,6 +718,7 @@ def run() -> int:
     existing = results[existing_index] if existing_index is not None else None
     if existing and existing.get("quality") == "OK":
         print("[receiver] an OK record already exists for this JST date")
+        send_email_if_due(existing)
         return 0
 
     channel_a_sources, channel_b_sources = collect_sources()
@@ -637,6 +778,7 @@ def run() -> int:
     if changed:
         save_results(results)
         send_notification(entry)
+        send_email_if_due(entry)
 
     print(
         f"[RESULT] quality={saved_entry['quality']} rank={saved_entry['rank']} "

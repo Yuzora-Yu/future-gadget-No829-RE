@@ -69,11 +69,27 @@
 
 日次実行は `00:30 UTC = 09:30 JST` に設定されています。GitHub側の都合で開始が遅れる場合がありますが、レコードの日付はJSTで保存されます。
 
-## 任意の通知
+## 異常検知メール
 
-GitHub Actionsからntfy通知を送りたい場合、リポジトリの `Settings → Secrets and variables → Actions` に `NTFY_TOPIC` を登録します。未設定でも収集は正常に動作します。
+GitHub Pagesは静的サイトのため、メールは日次収集を実行するGitHub Actionsから送信します。収集品質が `OK` で、ランクが `SS / S / A / B / C` のいずれかになった日に、設定した宛先へ1回だけ送信します。
 
-ブラウザの `ENABLE LOCAL ALERT` は、ページまたはPWAが起動してデータを確認した時点でローカル通知します。バックグラウンドの真のPush通知ではありません。
+標準設定はGmail SMTPです。送信用Googleアカウントで2段階認証を有効にしてアプリパスワードを発行し、リポジトリの `Settings → Secrets and variables → Actions → New repository secret` に次の3件を登録してください。
+
+| Secret名 | 内容 |
+|---|---|
+| `SMTP_USERNAME` | 送信に使うGmailアドレス |
+| `SMTP_PASSWORD` | Googleで発行した16文字のアプリパスワード |
+| `ALERT_EMAIL_TO` | 異常検知メールの受信アドレス |
+
+受信アドレスは公開コードへ直書きせずSecretに保存するため、公開リポジトリでもページ閲覧者には表示されません。通常のGoogleアカウントのパスワードは登録しないでください。
+
+設定確認は `Actions → Daily Signal Collection → Run workflow` を開き、`異常検知メールのテスト送信を行う` にチェックを入れて実行します。チェックなしの通常実行では、信号がない日はメールを送信しません。
+
+公開ページへのリンクもメールに載せる場合は、同じ画面の `Variables` に `PAGES_URL` を登録します。
+
+既存のntfy通知も併用できます。`NTFY_TOPIC` をSecretとして登録してください。未設定でも収集とメール通知は動作します。
+
+ブラウザの `LOCAL ALERT` は、ページまたはPWAが起動してデータを確認した時点でローカル通知します。バックグラウンドの真のPush通知ではありません。
 
 ## ローカル検証
 
@@ -93,6 +109,7 @@ collector.py                固定プロトコル本体
 protocol.json               公開された鍵・対照群・閾値
 index.html                  GitHub Pages画面
 data/results.json           新実験の記録
+data/notification-state.json メールの重複送信防止状態
  data/legacy-results.json   旧RE版125日分
 manifest.json / sw.js       PWA
 ```

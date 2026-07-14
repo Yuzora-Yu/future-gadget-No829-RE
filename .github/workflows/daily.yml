@@ -14,6 +14,12 @@ on:
       - 'collector.py'
       - '.github/workflows/daily.yml'
   workflow_dispatch:
+    inputs:
+      send_test_email:
+        description: '異常検知メールのテスト送信を行う'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -26,6 +32,14 @@ jobs:
   collect:
     runs-on: ubuntu-latest
     timeout-minutes: 18
+    env:
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: '465'
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      ALERT_EMAIL_FROM: ${{ secrets.SMTP_USERNAME }}
+      ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+      PAGES_URL: ${{ vars.PAGES_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,6 +53,10 @@ jobs:
 
       - name: Verify fixed protocol
         run: python test_protocol.py
+
+      - name: Send test email
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.send_test_email }}
+        run: python -c "import sys, collector; sys.exit(0 if collector.send_test_email() else 1)"
 
       - name: Collect public signal packet with automatic retry
         env:
@@ -66,7 +84,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/results.json protocol.json
+          git add data/results.json data/notification-state.json protocol.json
           git diff --staged --quiet && exit 0
           git commit -m "signal: lock $(TZ=Asia/Tokyo date +%Y-%m-%d) JST"
           git pull --rebase
