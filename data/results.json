@@ -5186,5 +5186,189 @@
         }
       ]
     }
+  },
+  {
+    "date": "2026-08-22",
+    "collected_at_jst": "2026-08-22T11:03:42+09:00",
+    "protocol_version": "176248-remix-v1",
+    "target_key": "176248",
+    "quality": "OK",
+    "healthy_channels": 2,
+    "rank": "C",
+    "signal": true,
+    "friday_lock": false,
+    "numbers": [
+      1,
+      2,
+      7,
+      10,
+      18,
+      29,
+      31
+    ],
+    "decode_evidence": [
+      {
+        "lane": 1,
+        "number": 31,
+        "matches": 6,
+        "margin": 2
+      },
+      {
+        "lane": 2,
+        "number": 18,
+        "matches": 6,
+        "margin": 1
+      },
+      {
+        "lane": 3,
+        "number": 2,
+        "matches": 4,
+        "margin": 0
+      },
+      {
+        "lane": 4,
+        "number": 29,
+        "matches": 5,
+        "margin": 1
+      },
+      {
+        "lane": 5,
+        "number": 10,
+        "matches": 6,
+        "margin": 2
+      },
+      {
+        "lane": 6,
+        "number": 7,
+        "matches": 6,
+        "margin": 2
+      },
+      {
+        "lane": 7,
+        "number": 1,
+        "matches": 5,
+        "margin": 0
+      }
+    ],
+    "detection": {
+      "target": {
+        "score_a": -0.144338,
+        "score_b": 2.165064,
+        "score_combined": 1.428869,
+        "matches_a": 63,
+        "matches_b": 79,
+        "rank_a": 60,
+        "rank_b": 2,
+        "rank_combined": 7,
+        "percentile": 95.276
+      },
+      "control_count": 127,
+      "top_controls": [
+        {
+          "key_hash": "7ce675b44f",
+          "score": 2.653614,
+          "rank": 1
+        },
+        {
+          "key_hash": "4cb8105305",
+          "score": 2.44949,
+          "rank": 2
+        },
+        {
+          "key_hash": "1ba5314f3d",
+          "score": 1.93918,
+          "rank": 3
+        },
+        {
+          "key_hash": "e43ad88eb5",
+          "score": 1.632994,
+          "rank": 4
+        },
+        {
+          "key_hash": "d29fa66541",
+          "score": 1.530931,
+          "rank": 5
+        }
+      ]
+    },
+    "packets": {
+      "a_sha256": "3db930dd59d8f2d8d747adb449be5e8bc4d5c5a91f45bb9a0ea05a4e2cc9f46e",
+      "b_sha256": "a7af83b578c37a08ebe9c0fd8048317c03f913af0f645c076807e49d9366d709",
+      "a_bytes": 943,
+      "b_bytes": 95443
+    },
+    "sources": {
+      "channel_a": [
+        {
+          "name": "random.org",
+          "ok": true,
+          "bytes": 384,
+          "detail": {
+            "samples": 384
+          },
+          "error": ""
+        },
+        {
+          "name": "ANU QRNG",
+          "ok": true,
+          "bytes": 384,
+          "detail": {
+            "samples": 384
+          },
+          "error": ""
+        },
+        {
+          "name": "drand",
+          "ok": true,
+          "bytes": 32,
+          "detail": {
+            "round": 6397773,
+            "randomness": "a3faf714f55141f47f9d7ca13e1b97e4033c3d58bf4ab9b116dccee597e53ba6",
+            "relay": "api.drand.sh"
+          },
+          "error": ""
+        },
+        {
+          "name": "Bitcoin latest block",
+          "ok": true,
+          "bytes": 32,
+          "detail": {
+            "height": 963512,
+            "hash": "0000000000000000000198d903ff1676feccdb7d7345071064cb3684b1a7c4c9",
+            "provider": "blockchain.info"
+          },
+          "error": ""
+        }
+      ],
+      "channel_b": [
+        {
+          "name": "NOAA RTSW magnetic field",
+          "ok": true,
+          "bytes": 34244,
+          "detail": {
+            "rows": 90,
+            "bz_mean": 0.5099,
+            "last_time": "2026-08-22T01:58:00",
+            "source": "SOLAR1",
+            "endpoint": "services.swpc.noaa.gov"
+          },
+          "error": ""
+        },
+        {
+          "name": "NOAA RTSW solar wind",
+          "ok": true,
+          "bytes": 61107,
+          "detail": {
+            "rows": 90,
+            "density_mean": 3.2172,
+            "speed_mean": 483.44,
+            "last_time": "2026-08-22T01:57:00",
+            "source": "SOLAR1",
+            "endpoint": "services.swpc.noaa.gov"
+          },
+          "error": ""
+        }
+      ]
+    }
   }
 ]
