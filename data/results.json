@@ -17851,5 +17851,136 @@
         }
       ]
     }
+  },
+  {
+    "date": "2026-11-25",
+    "collected_at_jst": "2026-11-25T18:05:46+09:00",
+    "protocol_version": "176248-remix-v1",
+    "target_key": "176248",
+    "quality": "OK",
+    "healthy_channels": 2,
+    "rank": "-",
+    "signal": false,
+    "friday_lock": false,
+    "numbers": [],
+    "decode_evidence": [],
+    "detection": {
+      "target": {
+        "score_a": -1.299038,
+        "score_b": 0.144338,
+        "score_combined": -0.816496,
+        "matches_a": 55,
+        "matches_b": 65,
+        "rank_a": 114,
+        "rank_b": 51,
+        "rank_combined": 101,
+        "percentile": 21.26
+      },
+      "control_count": 127,
+      "top_controls": [
+        {
+          "key_hash": "06a5609a7c",
+          "score": 2.653614,
+          "rank": 1
+        },
+        {
+          "key_hash": "430bf7c567",
+          "score": 2.143304,
+          "rank": 2
+        },
+        {
+          "key_hash": "a47b664351",
+          "score": 2.041241,
+          "rank": 3
+        },
+        {
+          "key_hash": "22f1feef7a",
+          "score": 1.93918,
+          "rank": 4
+        },
+        {
+          "key_hash": "d5460d0b49",
+          "score": 1.93918,
+          "rank": 5
+        }
+      ]
+    },
+    "packets": {
+      "a_sha256": "9a4b1796e16f97c07249bc4cf67c24b82722163f801049010cb0c1e8fb2fe26a",
+      "b_sha256": "274dc4377224aaef5a7b93d222542dc29fad957204d48001265ce14831cae792",
+      "a_bytes": 541,
+      "b_bytes": 95026
+    },
+    "sources": {
+      "channel_a": [
+        {
+          "name": "random.org",
+          "ok": true,
+          "bytes": 384,
+          "detail": {
+            "samples": 384
+          },
+          "error": ""
+        },
+        {
+          "name": "ANU QRNG",
+          "ok": false,
+          "bytes": 0,
+          "detail": {},
+          "error": "fetch failed: https://qrng.anu.edu.au/API/jsonI.php?length=384&type=uint8: <urlopen error timed out>"
+        },
+        {
+          "name": "drand",
+          "ok": true,
+          "bytes": 32,
+          "detail": {
+            "round": 6672217,
+            "randomness": "49a2d9098899c65df1cdf9dbb662e3b3595876f107b787d748955f523e16e16e",
+            "relay": "api.drand.sh"
+          },
+          "error": ""
+        },
+        {
+          "name": "Bitcoin latest block",
+          "ok": true,
+          "bytes": 32,
+          "detail": {
+            "height": 977490,
+            "hash": "0000000000000000000002b566979f4ab72abb8e3170fbf1246a24bd0820f291",
+            "provider": "blockchain.info"
+          },
+          "error": ""
+        }
+      ],
+      "channel_b": [
+        {
+          "name": "NOAA RTSW magnetic field",
+          "ok": true,
+          "bytes": 33752,
+          "detail": {
+            "rows": 90,
+            "bz_mean": 2.8757,
+            "last_time": "2026-11-25T09:01:00",
+            "source": "SOLAR1",
+            "endpoint": "services.swpc.noaa.gov"
+          },
+          "error": ""
+        },
+        {
+          "name": "NOAA RTSW solar wind",
+          "ok": true,
+          "bytes": 61182,
+          "detail": {
+            "rows": 90,
+            "density_mean": 2.3348,
+            "speed_mean": 360.29,
+            "last_time": "2026-11-25T08:59:00",
+            "source": "SOLAR1",
+            "endpoint": "services.swpc.noaa.gov"
+          },
+          "error": ""
+        }
+      ]
+    }
   }
 ]
